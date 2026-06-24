@@ -1,0 +1,15 @@
+/* Transform pivots for the animated glyph parts. transform-box makes
+   the origin resolve inside the SVG coordinate space rather than the
+   element's CSS box. */
+.spin {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.barOrigin {
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+.orbit {
+  transform-box: view-box;
+  transform-origin: 60px 60px;
+}

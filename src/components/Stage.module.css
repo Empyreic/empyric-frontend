@@ -1,0 +1,257 @@
+/* ============================================================
+   Stage — hero + scroll-scrubbed video, one pinned canvas.
+   GSAP/ScrollTrigger pins .pin and drives the scrub, so there's
+   no CSS sticky or forced section height here.
+   ============================================================ */
+
+.stage {
+  position: relative;
+}
+
+.pin {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* The scrubbed clip — its first frame is the hero background. */
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--indigo-900) url("/poster.jpg") center / cover no-repeat;
+}
+
+/* Always-on cinematic shading for legibility over moving footage. */
+.shade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(to top, rgba(7, 10, 20, 0.8) 0%, transparent 32%),
+    linear-gradient(to bottom, rgba(7, 10, 20, 0.5) 0%, transparent 24%),
+    radial-gradient(130% 100% at 50% 56%, transparent 42%, rgba(7, 10, 20, 0.45) 100%);
+}
+
+/* Twilight scrim for the hero phase — deep indigo over the text column,
+   fading to reveal the arch. GSAP fades it as the hero dissolves. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(
+    100deg,
+    rgba(7, 10, 20, 0.92) 2%,
+    rgba(7, 10, 20, 0.7) 26%,
+    rgba(7, 10, 20, 0.28) 48%,
+    rgba(7, 10, 20, 0.03) 66%,
+    transparent 80%
+  );
+}
+
+/* Hero phase. */
+.inner {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  will-change: opacity, transform;
+}
+.hero {
+  width: 100%;
+  padding: 0 var(--shell-x);
+}
+.content {
+  max-width: 40rem;
+  width: 100%;
+}
+
+.scrollcue {
+  position: absolute;
+  left: var(--shell-x);
+  bottom: 1.8rem;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ivory-faint);
+  transition: color 0.3s var(--ease);
+}
+.scrollcue:hover {
+  color: var(--ivory);
+}
+.scrollcue svg {
+  animation: nudge 2.4s var(--ease) infinite;
+}
+
+/* subtle "skip the intro" affordance — mirrors the scroll cue's type */
+.skip {
+  position: absolute;
+  right: var(--shell-x);
+  bottom: 1.8rem;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ivory-faint);
+  transition: color 0.3s var(--ease);
+}
+.skip:hover,
+.skip:focus-visible {
+  color: var(--ivory);
+}
+
+/* ---------- Caption phases over the scrubbing clip ---------- */
+
+.captions {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  padding: 0 var(--shell-x);
+  text-align: center;
+  pointer-events: none;
+}
+.cap {
+  grid-area: 1 / 1;
+  max-width: 50rem;
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: opacity, transform;
+}
+.capEyebrow {
+  margin: 0 0 1rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--champagne);
+}
+.capTitle {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 5.6vw, 4.6rem);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  color: var(--ivory);
+  text-shadow: 0 2px 40px rgba(7, 10, 20, 0.65);
+}
+.capCta {
+  margin-top: 2.2rem;
+  pointer-events: auto;
+}
+
+.rail {
+  position: absolute;
+  left: 50%;
+  bottom: 2.2rem;
+  z-index: 5;
+  transform: translateX(-50%);
+  width: min(40vw, 320px);
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(246, 241, 231, 0.14);
+  overflow: hidden;
+}
+.railFill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--champagne), var(--gold-core));
+  box-shadow: 0 0 12px rgba(247, 230, 194, 0.7);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 880px) {
+  .inner {
+    align-items: flex-end;
+  }
+  .hero {
+    padding-bottom: 7rem;
+  }
+  .content {
+    max-width: 100%;
+  }
+  /* On narrow screens the arch sits behind the copy — darken broadly. */
+  .scrim {
+    background:
+      linear-gradient(to top, var(--indigo-900) 8%, rgba(7, 10, 20, 0.42) 34%, transparent 60%),
+      linear-gradient(to bottom, rgba(7, 10, 20, 0.45) 0%, transparent 26%);
+  }
+}
+
+/* ============================================================
+   Reduced motion — no scrubbing. Keep the hero, stack the story,
+   let the clip loop quietly behind it.
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollcue svg {
+    animation: none;
+  }
+
+  .pin {
+    height: auto;
+    overflow: visible;
+  }
+  .video {
+    position: sticky;
+    inset: auto;
+    top: 0;
+    height: 100svh;
+  }
+
+  .inner {
+    position: relative;
+    inset: auto;
+    min-height: 100svh;
+  }
+  .scrim {
+    position: absolute;
+  }
+
+  .captions {
+    position: static;
+    display: block;
+    padding: 0;
+    pointer-events: auto;
+  }
+  .cap {
+    position: relative;
+    opacity: 1;
+    transform: none;
+    max-width: 100%;
+    min-height: 84svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem var(--shell-x);
+  }
+  .rail,
+  .scrollcue,
+  .skip {
+    display: none;
+  }
+}

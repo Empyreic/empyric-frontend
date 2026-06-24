@@ -1,0 +1,335 @@
+.services {
+  position: relative;
+  z-index: 2;
+  padding: clamp(6rem, 13vh, 11rem) var(--shell-x) clamp(5rem, 10vh, 9rem);
+  overflow: hidden;
+}
+
+/* drifting atmosphere */
+.glow {
+  position: absolute;
+  top: -8%;
+  right: -6%;
+  width: 60vw;
+  height: 60vw;
+  max-width: 760px;
+  max-height: 760px;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(247, 230, 194, 0.1),
+    transparent 62%
+  );
+  filter: blur(10px);
+  will-change: transform;
+}
+
+.head {
+  position: relative;
+  max-width: 46rem;
+  margin-bottom: clamp(2.6rem, 6vh, 4.6rem);
+}
+.head [data-head] {
+  opacity: 0;
+}
+.eyebrow {
+  margin-bottom: 1.4rem;
+}
+.title {
+  margin: 0 0 1.6rem;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.012em;
+  background: linear-gradient(168deg, var(--ivory) 40%, var(--champagne) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.lede {
+  margin: 0;
+  max-width: 34rem;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.64;
+  color: var(--ivory-dim);
+}
+
+/* ---------------- Accordion ---------------- */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ivory-ghost);
+}
+.row {
+  position: relative;
+  border-bottom: 1px solid var(--ivory-ghost);
+  opacity: 0; /* anime fades in; reduced-motion restores below */
+}
+
+.header {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(3rem, 6vw, 5rem) auto 1fr auto;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.4rem);
+  width: 100%;
+  padding: clamp(1.5rem, 3.4vw, 2.6rem) 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font-family: inherit;
+  transition: opacity 0.45s var(--ease);
+}
+.row:not([data-active]) .header {
+  opacity: 0.5;
+}
+.row:not([data-active]) .header:hover {
+  opacity: 0.8;
+}
+
+.index {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(231, 207, 161, 0.55);
+  transition: color 0.45s var(--ease), -webkit-text-stroke-color 0.45s var(--ease);
+}
+.row[data-active] .index {
+  color: var(--champagne-bright);
+  -webkit-text-stroke-color: transparent;
+}
+
+.name {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 4.6vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: -0.012em;
+  color: var(--ivory);
+  white-space: nowrap;
+  transition: transform 0.5s var(--ease);
+}
+.row[data-active] .name {
+  transform: translateX(6px);
+}
+
+.tagline {
+  justify-self: start;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--champagne);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.row[data-active] .tagline {
+  opacity: 0.9;
+  transform: translateX(0);
+}
+
+/* plus → × toggle */
+.mark {
+  position: relative;
+  justify-self: end;
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+.mark::before,
+.mark::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto 0;
+  height: 1.5px;
+  background: var(--champagne-bright);
+  transform: translateY(-50%);
+  transition: transform 0.45s var(--ease), opacity 0.45s var(--ease);
+}
+.mark::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+.row[data-active] .mark::after {
+  opacity: 0;
+  transform: translateY(-50%) rotate(0deg);
+}
+
+/* the accent rail that draws under the active row */
+.rail {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--champagne-bright), transparent 80%);
+  box-shadow: 0 0 12px rgba(247, 230, 194, 0.6);
+  transition: transform 0.55s var(--ease);
+}
+.row[data-active] .rail {
+  transform: scaleX(1);
+}
+
+/* expanding panel: 0fr → 1fr grid trick */
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s var(--ease);
+}
+.row[data-active] .panel {
+  grid-template-rows: 1fr;
+}
+.panelInner {
+  overflow: hidden;
+}
+.panelBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(180px, 24vw, 300px);
+  align-items: center;
+  gap: clamp(1.6rem, 4vw, 4rem);
+  padding: 0.4rem 0 clamp(2rem, 4vw, 3.4rem) clamp(4rem, 12vw, 7.6rem);
+}
+
+.copy {
+  min-width: 0;
+}
+.blurb {
+  margin: 0 0 1.5rem;
+  max-width: 40rem;
+  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  line-height: 1.62;
+  color: var(--ivory-dim);
+}
+
+/* concrete deliverables checklist */
+.deliverables {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem 1.6rem;
+  list-style: none;
+  margin: 0 0 1.8rem;
+  padding: 0;
+  max-width: 40rem;
+}
+.deliverables li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  color: var(--ivory);
+}
+.deliverables svg {
+  flex: none;
+  color: var(--champagne-bright);
+}
+
+/* engagement length + tech stack */
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.4rem;
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--ivory-ghost);
+}
+.engagement {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--champagne);
+}
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.stack li {
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--ivory-faint);
+  padding: 0.3rem 0.66rem;
+  border: 1px solid var(--ivory-ghost);
+  border-radius: 6px;
+}
+
+/* big living glyph */
+.glyphStage {
+  position: relative;
+  justify-self: end;
+  width: clamp(150px, 22vw, 260px);
+  aspect-ratio: 1;
+  color: var(--champagne);
+}
+.glyphStage svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 16px rgba(247, 230, 194, 0.22));
+}
+.glyphHalo {
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(247, 230, 194, 0.16), transparent 66%);
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 760px) {
+  .header {
+    grid-template-columns: 2.4rem 1fr auto;
+    gap: 1rem;
+  }
+  .tagline {
+    display: none;
+  }
+  .name {
+    white-space: normal;
+  }
+  .panelBody {
+    grid-template-columns: 1fr;
+    /* Drop the desktop "align under the name" indent — on a narrow screen the
+       left-only padding pushed the content sideways and looked off-balance. */
+    padding-left: 0;
+    gap: 1.4rem;
+  }
+  .deliverables {
+    grid-template-columns: 1fr;
+  }
+  .glyphStage {
+    justify-self: start;
+    order: -1;
+    width: clamp(120px, 38vw, 180px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row,
+  .head [data-head] {
+    opacity: 1;
+  }
+  .panel {
+    transition: none;
+  }
+  .name,
+  .tagline,
+  .rail {
+    transition: none;
+  }
+}

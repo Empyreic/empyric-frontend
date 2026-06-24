@@ -1,0 +1,248 @@
+/* ============================================================
+   Mascot — expression layers toggled by [data-emotion].
+   Each layer hides by default and is revealed for its mood, so
+   switching emotion cross-fades/pops the accessories in place.
+   currentColor is the ink; the parent sets `color`.
+   ============================================================ */
+
+.mascot {
+  display: block;
+  overflow: visible;
+  /* Ink is currentColor, so tinting `color` per mood recolours the whole face.
+     `base` sets nothing and inherits the contextual brand colour (champagne on
+     the dark shell, ink on the light nav). */
+  transition: color 0.45s var(--ease), filter 0.45s var(--ease);
+}
+
+/* A gentle mood-coloured halo on top of the wrapper's brand glow, so the
+   emotion reads even at logo size. `base` keeps just the champagne glow. */
+.mascot[data-emotion="blushing"],
+.mascot[data-emotion="angry"],
+.mascot[data-emotion="sparkling"] {
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.mascot[data-emotion="blushing"] {
+  color: #f49ac2; /* pink — bashful */
+}
+.mascot[data-emotion="angry"] {
+  color: #f2564e; /* red — grumpy */
+}
+.mascot[data-emotion="sparkling"] {
+  color: #ffe7ad; /* brighter gold */
+}
+.mascot[data-emotion="droopy"] {
+  color: #9fb9e6; /* sad blue */
+}
+.mascot[data-emotion="confused"] {
+  color: #a9d6a2; /* puzzled green */
+}
+.mascot[data-emotion="panicking"] {
+  color: #88cfe0; /* flustered cyan */
+}
+.mascot[data-emotion="squinched"] {
+  color: #c7a9e6; /* strained violet */
+}
+.mascot[data-emotion="surprised"] {
+  color: #ffd27a; /* startled amber */
+}
+
+/* Every toggled piece pops from its own centre. */
+.eyeBase,
+.sparkDot,
+.eyeDroopy,
+.eyeAngry,
+.eyeHappy,
+.eyeConfused,
+.sparkles,
+.squinchLines,
+.tearSquinch,
+.sweatDroopy,
+.vein,
+.blushHeavy,
+.question,
+.panic,
+.exclaim {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.25s var(--ease), transform 0.4s var(--ease-out-expo);
+}
+
+/* Fade-only layers (no pop) read calmer. */
+.vein,
+.blushHeavy {
+  transform: none;
+}
+
+/* ---------------- Eyes ---------------- */
+
+.eyeBase {
+  transform: scale(0);
+}
+[data-emotion="base"] .eyeBase {
+  opacity: 1;
+  transform: scale(1);
+  animation: mascotBlink 6s var(--ease) infinite;
+}
+[data-emotion="sparkling"] .eyeBase {
+  opacity: 1;
+  transform: scale(1.24);
+}
+[data-emotion="blushing"] .eyeBase {
+  /* a soft, smaller eye peeks under the happy arc */
+  opacity: 0;
+}
+[data-emotion="panicking"] .eyeBase {
+  opacity: 1;
+  transform: scale(0.66);
+}
+[data-emotion="surprised"] .eyeBase {
+  opacity: 1;
+  transform: scale(0.78, 1.22);
+}
+
+[data-emotion="sparkling"] .sparkDot {
+  opacity: 0.6;
+  transform: scale(1);
+}
+[data-emotion="droopy"] .eyeDroopy {
+  opacity: 0.7;
+  transform: scale(1);
+}
+[data-emotion="angry"] .eyeAngry {
+  opacity: 1;
+  transform: scale(1);
+}
+[data-emotion="blushing"] .eyeHappy {
+  opacity: 1;
+  transform: scale(1);
+}
+[data-emotion="confused"] .eyeConfused {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ---------------- Accessories ---------------- */
+
+[data-emotion="sparkling"] .sparkles {
+  opacity: 1;
+  transform: scale(1);
+}
+.sparklesSpin {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+[data-emotion="sparkling"] .sparklesSpin {
+  animation: mascotSpin 4s ease-in-out infinite;
+}
+
+[data-emotion="squinched"] .squinchLines {
+  opacity: 1;
+  transform: scale(1);
+}
+[data-emotion="squinched"] .tearSquinch {
+  opacity: 0.85;
+  transform: scale(1) translateY(0);
+}
+
+[data-emotion="droopy"] .sweatDroopy {
+  opacity: 0.85;
+  transform: scale(1);
+}
+
+[data-emotion="angry"] .vein {
+  opacity: 1;
+}
+.veinPulse {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+[data-emotion="angry"] .veinPulse {
+  animation: mascotPulse 1.4s var(--ease) infinite;
+}
+
+[data-emotion="blushing"] .blushHeavy {
+  opacity: 1;
+}
+.steam {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+[data-emotion="blushing"] .steam {
+  animation: mascotSteam 2s ease-in-out infinite;
+}
+
+[data-emotion="confused"] .question {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+.question {
+  transform: scale(0) rotate(-18deg);
+}
+
+[data-emotion="panicking"] .panic {
+  opacity: 1;
+}
+.panicShake {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+[data-emotion="panicking"] .panicShake {
+  animation: mascotShake 0.12s steps(2) infinite;
+}
+
+.exclaim {
+  transform: scale(0.8) translateY(14px);
+}
+[data-emotion="surprised"] .exclaim {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* ---------------- Idle loops ---------------- */
+
+@keyframes mascotBlink {
+  0%, 92%, 100% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(0.12);
+  }
+}
+@keyframes mascotSpin {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(6deg);
+  }
+  75% {
+    transform: rotate(-6deg);
+  }
+}
+@keyframes mascotSteam {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes mascotShake {
+  0% {
+    transform: translateX(-1px);
+  }
+  100% {
+    transform: translateX(1px);
+  }
+}
+@keyframes mascotPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.14);
+  }
+}

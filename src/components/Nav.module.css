@@ -1,0 +1,203 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: transparent;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.2rem var(--shell-x);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.glyph {
+  display: inline-flex;
+  line-height: 0;
+  color: var(--champagne-bright);
+  filter: drop-shadow(0 0 8px rgba(247, 230, 194, 0.45));
+  cursor: pointer;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+.wordmark:hover .glyph {
+  transform: translateY(-2px) scale(1.06);
+}
+
+.links {
+  display: flex;
+  gap: 2.2rem;
+  margin-left: auto;
+  font-size: 0.92rem;
+}
+.links a {
+  color: var(--ivory-dim);
+  position: relative;
+  padding: 0.25rem 0;
+  transition: color 0.3s var(--ease);
+}
+.links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--champagne-bright);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+.links a:hover,
+.links a:focus-visible {
+  color: var(--ivory);
+}
+.links a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Light theme — dark ink nav for the neobrutalist case-study pages */
+.nav[data-theme="light"] .wordmark,
+.nav[data-theme="light"] .links a,
+.nav[data-theme="light"] .cta {
+  color: #15121c;
+}
+.nav[data-theme="light"] .glyph {
+  color: #15121c;
+  filter: none;
+}
+.nav[data-theme="light"] .links a::after {
+  background: #15121c;
+}
+.nav[data-theme="light"] .cta {
+  border: 2px solid #15121c;
+  background: #fff;
+  box-shadow: 3px 3px 0 #15121c;
+}
+.nav[data-theme="light"] .cta:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #15121c;
+  background: #fff;
+}
+
+/* ============================================================
+   Mobile menu — hamburger toggle + drop-down panel
+   ============================================================ */
+
+.toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  margin-left: auto;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.toggleBar {
+  display: block;
+  width: 24px;
+  height: 1.6px;
+  margin: 0 auto;
+  border-radius: 2px;
+  background: var(--ivory);
+  transition: transform 0.32s var(--ease), opacity 0.32s var(--ease);
+}
+.nav[data-theme="light"] .toggleBar {
+  background: #15121c;
+}
+.nav[data-open] .toggleBar:nth-child(1) {
+  transform: translateY(3.8px) rotate(45deg);
+}
+.nav[data-open] .toggleBar:nth-child(2) {
+  transform: translateY(-3.8px) rotate(-45deg);
+}
+
+/* Panel is rendered with the `hidden` attribute when closed; on desktop it
+   never displays because the toggle that opens it is hidden too. */
+.panel {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  padding: 5.4rem var(--shell-x) 2.4rem;
+  background: rgba(7, 10, 20, 0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--ivory-ghost);
+  box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.7);
+}
+.panelLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.panelLinks a {
+  padding: 0.85rem 0;
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--ivory);
+  border-bottom: 1px solid var(--ivory-ghost);
+}
+.panelLinks a:last-of-type {
+  border-bottom: 0;
+}
+.panelCta {
+  justify-content: center;
+  margin-top: 1.4rem;
+  padding: 0.95rem 1.5rem;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  border-bottom: 0;
+}
+
+@media (max-width: 880px) {
+  .links {
+    display: none;
+  }
+  .cta {
+    display: none;
+  }
+  .toggle {
+    display: flex;
+  }
+  .nav[data-open] .panel {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .inner {
+    gap: 1rem;
+    padding: 1rem var(--shell-x);
+  }
+  .wordmark {
+    font-size: 1.25rem;
+  }
+  .panelLinks a {
+    font-size: 1.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggleBar {
+    transition: none;
+  }
+}
