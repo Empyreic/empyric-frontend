@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Grain from "./components/Grain.jsx";
+import PostHogPageView from "./components/PostHogPageView.jsx";
 import Nav from "./components/Nav.jsx";
 import Footer from "./components/Footer.jsx";
 import Seo from "./components/Seo.jsx";
@@ -19,6 +20,7 @@ export default function App() {
 
   return (
     <>
+      <PostHogPageView />
       <Seo />
       <Grain />
       <Nav />
