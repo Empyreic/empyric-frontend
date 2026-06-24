@@ -16,7 +16,7 @@ import styles from "./Stage.module.css";
 export default function Stage({ reduced }) {
   const stageRef = useRef(null);
   const pinRef = useRef(null);
-  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
   const heroRef = useRef(null);
   const scrimRef = useRef(null);
   const railRef = useRef(null);
@@ -24,7 +24,7 @@ export default function Stage({ reduced }) {
   const capsRef = useRef([]);
 
   useScrollScrub(
-    { stageRef, pinRef, videoRef, heroRef, scrimRef, railRef, cueRef, capsRef },
+    { stageRef, pinRef, canvasRef, heroRef, scrimRef, railRef, cueRef, capsRef },
     captions,
     reduced
   );
@@ -44,17 +44,16 @@ export default function Stage({ reduced }) {
       ref={stageRef}
     >
       <div className={styles.pin} ref={pinRef}>
-        <video
+        {/* Scroll-scrubbed image sequence drawn onto a canvas (Apple-style).
+            The .video class + poster background show until the first frame
+            paints. Frame loading + scrub are driven by useScrollScrub. */}
+        <canvas
           className={styles.video}
-          ref={videoRef}
-          playsInline
-          muted
-          preload="metadata"
-          poster="/poster.jpg"
+          ref={canvasRef}
+          width={1280}
+          height={720}
           aria-hidden="true"
-        >
-          <source src="/threshold.mp4" type="video/mp4" />
-        </video>
+        />
 
         <div className={styles.shade} aria-hidden="true" />
         <div className={styles.scrim} ref={scrimRef} aria-hidden="true" />
