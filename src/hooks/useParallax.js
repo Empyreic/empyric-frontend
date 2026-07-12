@@ -1,8 +1,4 @@
 import { useEffect } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Drifts a decorative element against the scroll for a sense of depth. Uses a
@@ -22,7 +18,18 @@ export function useParallax(ref, { from = -10, to = 10 } = {}, reduced) {
     if (!el || reduced) return;
     if (!window.matchMedia("(min-width: 768px)").matches) return;
 
-    const ctx = gsap.context(() => {
+    let ctx;
+    let cancelled = false;
+
+    const init = async () => {
+      const [{ default: gsap }, { default: ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      if (cancelled) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
       gsap.fromTo(
         el,
         { yPercent: from },
@@ -37,8 +44,14 @@ export function useParallax(ref, { from = -10, to = 10 } = {}, reduced) {
           },
         }
       );
-    });
+      });
+    };
 
-    return () => ctx.revert();
+    init();
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, [ref, reduced, from, to]);
 }

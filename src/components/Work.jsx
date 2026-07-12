@@ -14,6 +14,8 @@ export default function Work({ reduced }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const stageRef = useRef(null);
   const trackRef = useRef(null);
+  const activeIndexRef = useRef(activeIndex);
+  const wheelLockRef = useRef(false);
   const navigate = useNavigate();
 
   useCountUp(ref, reduced);
@@ -53,7 +55,10 @@ export default function Work({ reduced }) {
 
     const cardEl = cards[0];
     const cardWidth = cardEl.offsetWidth;
-    const stepWidth = cardWidth + 28; // card width + margins (14px on each side)
+    const cardStyle = window.getComputedStyle(cardEl);
+    const cardMargin =
+      parseFloat(cardStyle.marginLeft || "0") + parseFloat(cardStyle.marginRight || "0");
+    const stepWidth = cardWidth + cardMargin;
     const offset = (stage.offsetWidth - cardWidth) / 2;
 
     track.style.transform = `translateX(${offset - activeIndex * stepWidth}px)`;
@@ -73,35 +78,48 @@ export default function Work({ reduced }) {
 
   useEffect(() => {
     updateLayout();
+    activeIndexRef.current = activeIndex;
     window.addEventListener("resize", updateLayout);
     return () => window.removeEventListener("resize", updateLayout);
   }, [activeIndex]);
 
-  // Handle wheel scrolling over the stage
+  // Horizontal carousel navigation is intentional: vertical wheel scroll passes through.
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
 
-    let wheelLock = false;
+    let unlockTimer;
     const handleWheel = (e) => {
-      e.preventDefault();
-      if (wheelLock) return;
+      const absX = Math.abs(e.deltaX);
+      const absY = Math.abs(e.deltaY);
+      const usesHorizontalGesture = absX > absY * 1.25 && absX > 8;
+      const usesShiftWheel = e.shiftKey && absY > 8;
 
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (Math.abs(delta) < 8) return;
+      if (!usesHorizontalGesture && !usesShiftWheel) return;
 
-      wheelLock = true;
+      const delta = usesHorizontalGesture ? e.deltaX : e.deltaY;
       const direction = delta > 0 ? 1 : -1;
-      setActiveIndex((prev) => Math.max(0, Math.min(work.length - 1, prev + direction)));
+      const currentIndex = activeIndexRef.current;
+      const nextIndex = Math.max(0, Math.min(work.length - 1, currentIndex + direction));
 
-      setTimeout(() => {
-        wheelLock = false;
+      if (nextIndex === currentIndex) return;
+
+      e.preventDefault();
+      if (wheelLockRef.current) return;
+
+      wheelLockRef.current = true;
+      activeIndexRef.current = nextIndex;
+      setActiveIndex(nextIndex);
+
+      unlockTimer = window.setTimeout(() => {
+        wheelLockRef.current = false;
       }, 420);
     };
 
     stage.addEventListener("wheel", handleWheel, { passive: false });
     return () => {
       stage.removeEventListener("wheel", handleWheel);
+      window.clearTimeout(unlockTimer);
     };
   }, []);
 

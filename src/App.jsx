@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Grain from "./components/Grain.jsx";
@@ -8,8 +8,10 @@ import Footer from "./components/Footer.jsx";
 import Seo from "./components/Seo.jsx";
 import ScrollManager from "./components/ScrollManager.jsx";
 import Home from "./pages/Home.jsx";
-import CaseStudy from "./pages/CaseStudy.jsx";
-import Studio from "./pages/Studio.jsx";
+
+const CaseStudy = lazy(() => import("./pages/CaseStudy.jsx"));
+const Studio = lazy(() => import("./pages/Studio.jsx"));
+const LegalPage = lazy(() => import("./pages/LegalPage.jsx"));
 
 export default function App() {
   useEffect(() => {
@@ -25,16 +27,19 @@ export default function App() {
       <Grain />
       <Nav />
       <ScrollManager />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/work" element={<Home />} />
-        <Route path="/craft" element={<Home />} />
-        <Route path="/proof" element={<Home />} />
-        <Route path="/contact" element={<Home />} />
-        <Route path="/work/:slug" element={<CaseStudy />} />
-        <Route path="/studio" element={<Studio />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/work" element={<Home />} />
+          <Route path="/craft" element={<Home />} />
+          <Route path="/proof" element={<Home />} />
+          <Route path="/contact" element={<Home />} />
+          <Route path="/work/:slug" element={<CaseStudy />} />
+          <Route path="/studio" element={<Studio />} />
+          <Route path="/legal/:slug" element={<LegalPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </>
   );

@@ -1,8 +1,4 @@
 import { useEffect } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Draws SVG stroke paths on as they scroll into view. Targets must declare
@@ -21,11 +17,25 @@ export function useDrawIn(ref, reduced, selector = "[data-draw]") {
     if (!paths.length) return;
 
     if (reduced) {
-      gsap.set(paths, { strokeDasharray: 1, strokeDashoffset: 0 });
+      paths.forEach((path) => {
+        path.style.strokeDasharray = "1";
+        path.style.strokeDashoffset = "0";
+      });
       return;
     }
 
-    const ctx = gsap.context(() => {
+    let ctx;
+    let cancelled = false;
+
+    const init = async () => {
+      const [{ default: gsap }, { default: ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      if (cancelled) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
       gsap.set(paths, { strokeDasharray: 1, strokeDashoffset: 1 });
       gsap.to(paths, {
         strokeDashoffset: 0,
@@ -34,8 +44,14 @@ export function useDrawIn(ref, reduced, selector = "[data-draw]") {
         stagger: 0.08,
         scrollTrigger: { trigger: root, start: "top 75%", once: true },
       });
-    }, root);
+      }, root);
+    };
 
-    return () => ctx.revert();
+    init();
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, [ref, reduced, selector]);
 }

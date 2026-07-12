@@ -86,7 +86,7 @@ for (const route of PRERENDER_ROUTES) {
   let body = "";
   if (render) {
     try {
-      body = render(route).html;
+      body = (await render(route)).html;
     } catch (err) {
       console.warn(`[prerender] render failed for ${route} (${err.message}) — head-only`);
     }

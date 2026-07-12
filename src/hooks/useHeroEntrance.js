@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import anime from "animejs";
 
 /**
  * Staggered fade-and-rise for the hero copy, powered by anime.js.
@@ -19,15 +18,27 @@ export function useHeroEntrance(containerRef, reduced) {
     const targets = root.querySelectorAll(".reveal");
     if (!targets.length) return;
 
-    const animation = anime({
-      targets,
-      translateY: [24, 0],
-      opacity: [0, 1],
-      easing: "easeOutCubic",
-      duration: 950,
-      delay: anime.stagger(150, { start: 80 }),
-    });
+    let animation;
+    let cancelled = false;
+    const start = () => {
+      import("animejs").then(({ default: anime }) => {
+        if (cancelled) return;
+        animation = anime({
+          targets,
+          translateY: [18, 0],
+          easing: "easeOutCubic",
+          duration: 800,
+          delay: anime.stagger(110, { start: 40 }),
+        });
+      });
+    };
 
-    return () => animation.pause();
+    const id = window.setTimeout(start, 80);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(id);
+      animation?.pause();
+    };
   }, [containerRef, reduced]);
 }

@@ -1,0 +1,115 @@
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  padding: calc(7rem + 4vh) var(--shell-x) 7rem;
+  background:
+    linear-gradient(90deg, rgba(246, 241, 231, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(246, 241, 231, 0.03) 1px, transparent 1px),
+    linear-gradient(158deg, var(--indigo-900), var(--indigo-800) 58%, #0e1428);
+  background-size: 88px 88px, 88px 88px, auto;
+  overflow: hidden;
+}
+
+.page::before {
+  content: "";
+  position: absolute;
+  inset: -14rem -12rem auto auto;
+  z-index: -1;
+  width: 46rem;
+  height: 42rem;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(232, 212, 167, 0.12), transparent 66%);
+  filter: blur(48px);
+}
+
+.wrap {
+  width: min(100%, 920px);
+  margin: 0 auto;
+}
+
+.hero {
+  margin-bottom: 2.4rem;
+}
+
+.eyebrow {
+  margin-bottom: 1.4rem;
+}
+
+.title {
+  margin: 0 0 1.25rem;
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 5.2rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--ivory);
+}
+
+.lead {
+  max-width: 44rem;
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.16rem);
+  line-height: 1.68;
+  color: var(--ivory-dim);
+}
+
+.updated {
+  margin: 1.25rem 0 0;
+  font-size: 0.86rem;
+  color: var(--champagne-soft);
+}
+
+.notice {
+  margin: 0 0 2.2rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(232, 212, 167, 0.2);
+  border-radius: 8px;
+  background: rgba(232, 212, 167, 0.055);
+  color: var(--ivory-dim);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.sections {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--ivory-ghost);
+}
+
+.section {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: clamp(1rem, 4vw, 2rem);
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--ivory-ghost);
+}
+
+.index {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(232, 212, 167, 0.38);
+}
+
+.sectionTitle {
+  margin: 0 0 0.6rem;
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: var(--ivory);
+}
+
+.body {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.68;
+  color: var(--ivory-dim);
+}
+
+@media (max-width: 560px) {
+  .section {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+}

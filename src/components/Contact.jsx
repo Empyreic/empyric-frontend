@@ -1,14 +1,10 @@
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 
 import BrandMascot from "./BrandMascot.jsx";
 import ArrowIcon from "./icons/ArrowIcon.jsx";
 import { useMagnetic } from "../hooks/useMagnetic.js";
 import { useParallax } from "../hooks/useParallax.js";
 import styles from "./Contact.module.css";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const EMAIL = "hello@empyreic.studio";
 
@@ -46,11 +42,25 @@ export default function Contact({ reduced }) {
     if (!items.length) return;
 
     if (reduced) {
-      gsap.set(items, { opacity: 1, y: 0 });
+      items.forEach((item) => {
+        item.style.opacity = "1";
+        item.style.transform = "translateY(0)";
+      });
       return;
     }
 
-    const ctx = gsap.context(() => {
+    let ctx;
+    let cancelled = false;
+
+    const init = async () => {
+      const [{ default: gsap }, { default: ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      if (cancelled) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
       gsap.from(items, {
         opacity: 0,
         y: 40,
@@ -59,9 +69,15 @@ export default function Contact({ reduced }) {
         stagger: 0.12,
         scrollTrigger: { trigger: root, start: "top 72%", once: true },
       });
-    }, root);
+      }, root);
+    };
 
-    return () => ctx.revert();
+    init();
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, [reduced]);
 
   const mailtoHref = `mailto:${EMAIL}?subject=${encodeURIComponent(

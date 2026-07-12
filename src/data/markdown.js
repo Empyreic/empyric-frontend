@@ -3,6 +3,7 @@ import { work } from "./work.js";
 import { studio, team } from "./team.js";
 import { proofStats, proofPillars, proofChecks } from "./proof.js";
 import { testimonials } from "./testimonials.js";
+import { legalPages } from "./legal.js";
 
 /**
  * Generates clean, semantic Markdown representation of public pages.
@@ -170,6 +171,27 @@ If the timing's right, tell us what you're building. Typical engagements range f
 
 Contact: hello@empyreic.studio
 `;
+  }
+
+  const legalMatch = path.match(/^\/legal\/(.+)$/);
+  if (legalMatch) {
+    const page = legalPages[legalMatch[1]];
+    if (page) {
+      const sections = page.sections
+        .map((section) => `## ${section.title}\n\n${section.body}`)
+        .join("\n\n");
+
+      return `# ${page.title}
+
+${page.description}
+
+Last updated: ${page.updated}
+
+Temporary placeholder content. This is not legal advice and should be replaced before launch.
+
+${sections}
+`;
+    }
   }
 
   const match = path.match(/^\/work\/(.+)$/);

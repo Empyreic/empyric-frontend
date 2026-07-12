@@ -1,8 +1,4 @@
 import { useEffect } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Split a display value like "+38%", "2.4x", "-60%", "4.6/5", "48h" into a
@@ -38,7 +34,18 @@ export function useCountUp(ref, reduced) {
       return;
     }
 
-    const ctx = gsap.context(() => {
+    let ctx;
+    let cancelled = false;
+
+    const init = async () => {
+      const [{ default: gsap }, { default: ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      if (cancelled) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
       els.forEach((el) => {
         const parsed = parseValue(el.dataset.count);
         if (!parsed) {
@@ -62,8 +69,14 @@ export function useCountUp(ref, reduced) {
           scrollTrigger: { trigger: el, start: "top 88%", once: true },
         });
       });
-    }, ref);
+      }, ref);
+    };
 
-    return () => ctx.revert();
+    init();
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, [ref, reduced]);
 }

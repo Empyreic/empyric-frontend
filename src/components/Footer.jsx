@@ -34,6 +34,12 @@ export default function Footer() {
             </a>
             <Link to={{ pathname: "/", hash: "#contact" }}>Start a project</Link>
           </div>
+          <div className={styles.col}>
+            <h3 className={styles.colTitle}>Legal</h3>
+            <Link to="/legal/privacy-policy">Privacy Policy</Link>
+            <Link to="/legal/terms-and-conditions">Terms &amp; Conditions</Link>
+            <Link to="/legal/cookies">Cookies</Link>
+          </div>
         </nav>
       </div>
 

@@ -4,8 +4,7 @@
    ============================================================ */
 
 /* Brand display face for headings + the logo wordmark. Single master, so
-   the weight range covers the 500/600 we request without faux-bold synthesis.
-   Served from /public; Cormorant Garamond stays as the swap-in fallback. */
+   the weight range covers the 500/600 we request without faux-bold synthesis. */
 @font-face {
   font-family: "Mary Roman";
   src: url("/MaryRoman.woff2") format("woff2");
@@ -45,8 +44,8 @@
   --gold-core: #fff8e8;
   --blush: #e9c6bc;
 
-  --serif: "Mary Roman", "Cormorant Garamond", "Iowan Old Style", Georgia, "Times New Roman", serif;
-  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --serif: "Mary Roman", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   --shell-x: clamp(1.25rem, 6vw, 7rem);
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -284,22 +283,9 @@ a {
   }
 }
 
-/* Animation targets start hidden; anime.js fades them in.
-   Reduced-motion users get them immediately. */
-.reveal,
-[data-rise],
-[data-pop] {
-  opacity: 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .reveal,
-  [data-rise],
-  [data-pop] {
-    opacity: 1;
   }
   /* Safety net: collapse any CSS transition/animation for motion-sensitive
      users. JS-driven motion is already gated per-component on `reduced`. */

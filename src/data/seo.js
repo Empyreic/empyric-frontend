@@ -1,4 +1,5 @@
 import { work } from "./work.js";
+import { legalPages, legalRoutes } from "./legal.js";
 
 /**
  * Single source of truth for per-route SEO.
@@ -138,6 +139,21 @@ export function getSeo(pathname = "/") {
     };
   }
 
+  const legalMatch = path.match(/^\/legal\/(.+)$/);
+  if (legalMatch) {
+    const page = legalPages[legalMatch[1]];
+    if (page) {
+      return {
+        title: `${page.title} â€” Empyreic`,
+        description: page.description,
+        canonical,
+        ogImage: abs(SITE.ogImage),
+        ogType: "website",
+        jsonLd: [orgLd()],
+      };
+    }
+  }
+
   const match = path.match(/^\/work\/(.+)$/);
   if (match) {
     const c = work.find((w) => w.id === match[1]);
@@ -172,5 +188,6 @@ export const PRERENDER_ROUTES = [
   "/craft",
   "/proof",
   "/contact",
+  ...legalRoutes.map((slug) => `/legal/${slug}`),
   ...work.map((w) => `/work/${w.id}`),
 ];
