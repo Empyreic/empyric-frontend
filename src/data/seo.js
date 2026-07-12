@@ -90,6 +90,54 @@ export function getSeo(pathname = "/") {
     };
   }
 
+  if (path === "/work") {
+    return {
+      title: "Work — Shipped projects by Empyreic",
+      description:
+        "Explore our archive of recent fintech, consumer, and B2B SaaS products designed and built in-house.",
+      canonical,
+      ogImage: abs(SITE.ogImage),
+      ogType: "website",
+      jsonLd: [orgLd()],
+    };
+  }
+
+  if (path === "/craft") {
+    return {
+      title: "The Craft — Frontend, AI, Automation & Motion",
+      description:
+        "Sleek frontend interfaces, practical AI features, robust background automation, and interactive motion choreography.",
+      canonical,
+      ogImage: abs(SITE.ogImage),
+      ogType: "website",
+      jsonLd: [orgLd()],
+    };
+  }
+
+  if (path === "/proof") {
+    return {
+      title: "Operating Standards — Fixed quotes, weekly demos",
+      description:
+        "How we keep projects trustworthy. Senior hands only, transparent delivery logs, and defined performance budgets.",
+      canonical,
+      ogImage: abs(SITE.ogImage),
+      ogType: "website",
+      jsonLd: [orgLd()],
+    };
+  }
+
+  if (path === "/contact") {
+    return {
+      title: "Start a Project — Work with Empyreic",
+      description:
+        "Tell us what you're building. Typical engagements range from 2 to 12 weeks, working directly with senior designers and engineers.",
+      canonical,
+      ogImage: abs(SITE.ogImage),
+      ogType: "website",
+      jsonLd: [orgLd()],
+    };
+  }
+
   const match = path.match(/^\/work\/(.+)$/);
   if (match) {
     const c = work.find((w) => w.id === match[1]);
@@ -120,5 +168,9 @@ export function getSeo(pathname = "/") {
 export const PRERENDER_ROUTES = [
   "/",
   "/studio",
+  "/work",
+  "/craft",
+  "/proof",
+  "/contact",
   ...work.map((w) => `/work/${w.id}`),
 ];

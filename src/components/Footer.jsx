@@ -21,13 +21,13 @@ export default function Footer() {
 
         <nav className={styles.cols} aria-label="Footer">
           <div className={styles.col}>
-            <h2 className={styles.colTitle}>Studio</h2>
+            <h3 className={styles.colTitle}>Studio</h3>
             <Link to="/studio">About &amp; team</Link>
             <Link to={{ pathname: "/", hash: "#services" }}>The craft</Link>
             <Link to={{ pathname: "/", hash: "#work" }}>Work</Link>
           </div>
           <div className={styles.col}>
-            <h2 className={styles.colTitle}>Connect</h2>
+            <h3 className={styles.colTitle}>Connect</h3>
             <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
               LinkedIn

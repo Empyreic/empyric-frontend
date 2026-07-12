@@ -75,4 +75,22 @@ export const team = [
     bio: "Turns static comps into motion. GSAP, WebGL, and a deep respect for the 100ms budget.",
     linkedin: "https://www.linkedin.com/",
   },
+  {
+    name: "Elena Rostova",
+    role: "Creative Technologist",
+    initials: "ER",
+    location: "London, UK",
+    tz: "UTC+0",
+    bio: "Bridges the gap between design systems and web tech. Specializes in WebGL shaders, SVG animations, and responsive micro-interactions.",
+    linkedin: "https://www.linkedin.com/",
+  },
+  {
+    name: "Julian Vance",
+    role: "Systems Architect",
+    initials: "JV",
+    location: "New York, USA",
+    tz: "UTC-5",
+    bio: "Designs decoupled architectures, state machines, and high-performance serverless endpoints. Keeps complex user flows fast and deterministic.",
+    linkedin: "https://www.linkedin.com/",
+  },
 ];

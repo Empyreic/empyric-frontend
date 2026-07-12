@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import anime from "animejs";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 import { workById, nextWork } from "../data/work.js";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion.js";

@@ -90,10 +90,18 @@ export default function Testimonials({ reduced }) {
           ))}
         </blockquote>
         <figcaption className={styles.meta} data-meta>
-          <span className={styles.name}>{current.name}</span>
-          <span className={styles.role}>
-            {current.role}, {current.company}
-          </span>
+          <div className={styles.avatar}>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="12" cy="7" r="4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <div className={styles.metaText}>
+            <span className={styles.name}>{current.name}</span>
+            <span className={styles.role}>
+              {current.role}, {current.company}
+            </span>
+          </div>
         </figcaption>
       </figure>
 

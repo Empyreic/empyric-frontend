@@ -15,19 +15,34 @@
 }
 
 :root {
-  --indigo-900: #070a14;
-  --indigo-800: #0b0e1a;
-  --indigo-700: #10152a;
-  --twilight: #1b2340;
+  --bg-deep: #080b14;
+  --bg-primary: #0b0f1b;
+  --bg-soft: #111522;
 
-  --ivory: #f6f1e7;
-  --ivory-dim: rgba(246, 241, 231, 0.74);
-  --ivory-faint: rgba(246, 241, 231, 0.5);
-  --ivory-ghost: rgba(246, 241, 231, 0.16);
+  --text-primary: #f1ede3;
+  --text-secondary: #aaa9a5;
+  --text-muted: #737781;
 
-  --champagne: #e7cfa1;
-  --champagne-bright: #f7e6c2;
-  --gold-core: #fff6e2;
+  --champagne: #e8d4a7;
+  --champagne-soft: #cbb98f;
+  --champagne-glow: rgba(232, 212, 167, 0.18);
+
+  --border-soft: rgba(241, 237, 227, 0.10);
+  --border-gold: rgba(232, 212, 167, 0.20);
+
+  /* Compatibility Mapping */
+  --indigo-900: var(--bg-deep);
+  --indigo-800: var(--bg-primary);
+  --indigo-700: var(--bg-soft);
+  --twilight: var(--bg-soft);
+
+  --ivory: var(--text-primary);
+  --ivory-dim: var(--text-secondary);
+  --ivory-faint: var(--text-muted);
+  --ivory-ghost: var(--border-soft);
+
+  --champagne-bright: var(--text-primary);
+  --gold-core: #fff8e8;
   --blush: #e9c6bc;
 
   --serif: "Mary Roman", "Cormorant Garamond", "Iowan Old Style", Georgia, "Times New Roman", serif;
@@ -52,13 +67,42 @@ html {
 body {
   margin: 0;
   font-family: var(--sans);
-  color: var(--ivory);
+  color: var(--text-primary);
   background:
-    radial-gradient(120% 90% at 96% 24%, rgba(247, 230, 194, 0.08), transparent 50%),
-    linear-gradient(158deg, var(--indigo-900) 0%, var(--indigo-800) 50%, #0e1428 100%);
+    radial-gradient(
+      circle at 72% 12%,
+      rgba(190, 179, 151, 0.07),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 20% 55%,
+      rgba(90, 108, 140, 0.06),
+      transparent 40%
+    ),
+    var(--bg-deep);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  color: #f1ede3;
+}
+
+p {
+  color: #aaa9a5;
+}
+
+.eyebrow,
+.accent,
+.number {
+  color: #cbb98f;
+}
+
+.divider {
+  background: rgba(241, 237, 227, 0.1);
 }
 
 a {

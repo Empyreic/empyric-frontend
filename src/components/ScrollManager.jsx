@@ -11,7 +11,16 @@ export default function ScrollManager() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    if (!hash) {
+    const pathMap = {
+      "/work": "#work",
+      "/craft": "#services",
+      "/proof": "#proof",
+      "/contact": "#contact",
+    };
+
+    const targetHash = hash || pathMap[pathname];
+
+    if (!targetHash) {
       window.scrollTo(0, 0);
       return;
     }
@@ -21,7 +30,7 @@ export default function ScrollManager() {
     let timer;
 
     const go = () => {
-      const el = document.querySelector(hash);
+      const el = document.querySelector(targetHash);
       if (el) {
         const y = Math.round(el.getBoundingClientRect().top + window.scrollY);
         el.scrollIntoView();

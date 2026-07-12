@@ -1,0 +1,19 @@
+# Empyreic
+
+Empyreic is a senior design and engineering studio building websites, web apps, and AI products end to end.
+
+## Core Disciplines
+
+- **Frontend**: Interfaces that feel inevitable.
+- **AI**: Intelligence, tastefully applied.
+- **Automation**: Workflows that run itself.
+- **Motion**: Interactive choreography.
+
+## Important Pages
+
+- [Home Page](https://empyreic.studio/)
+- [Work](https://empyreic.studio/work)
+- [Craft](https://empyreic.studio/craft)
+- [Proof](https://empyreic.studio/proof)
+- [Studio](https://empyreic.studio/studio)
+- [Contact](https://empyreic.studio/contact)

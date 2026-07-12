@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 import BrandMascot from "./BrandMascot.jsx";
 import ArrowIcon from "./icons/ArrowIcon.jsx";

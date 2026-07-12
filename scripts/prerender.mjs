@@ -27,17 +27,28 @@ const esc = (s) =>
 const seoMod = await import(pathToFileURL(path.join(root, "src/data/seo.js")).href);
 const { getSeo, PRERENDER_ROUTES, SITE } = seoMod;
 
+const mdMod = await import(pathToFileURL(path.join(root, "src/data/markdown.js")).href);
+const { getMarkdownForRoute } = mdMod;
+
 // Try to build + load the SSR renderer for full-body prerender.
 let render = null;
 try {
   const { build } = await import("vite");
   await build({
     logLevel: "warn",
+    ssr: {
+      noExternal: ["gsap", "react-router-dom"],
+    },
     build: {
       ssr: path.join(root, "src/entry-server.jsx"),
       outDir: ssrDir,
       emptyOutDir: true,
-      rollupOptions: { output: { entryFileNames: "entry-server.js" } },
+      rollupOptions: { 
+        output: { 
+          entryFileNames: "entry-server.js",
+          format: "esm"
+        } 
+      },
     },
   });
   const mod = await import(pathToFileURL(path.join(ssrDir, "entry-server.js")).href);
@@ -93,6 +104,13 @@ for (const route of PRERENDER_ROUTES) {
   const outDir = route === "/" ? dist : path.join(dist, route);
   await fs.mkdir(outDir, { recursive: true });
   await fs.writeFile(path.join(outDir, "index.html"), page, "utf8");
+
+  // Save the Markdown representation
+  const md = getMarkdownForRoute(route);
+  if (md) {
+    await fs.writeFile(path.join(outDir, "index.md"), md, "utf8");
+  }
+
   console.log(`[prerender] ${route}`);
 }
 

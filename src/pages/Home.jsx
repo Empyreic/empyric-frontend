@@ -5,7 +5,6 @@ import Work from "../components/Work.jsx";
 import Testimonials from "../components/Testimonials.jsx";
 import Contact from "../components/Contact.jsx";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion.js";
-
 export default function Home() {
   const reduced = usePrefersReducedMotion();
 

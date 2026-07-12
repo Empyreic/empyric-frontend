@@ -27,6 +27,10 @@ export default function App() {
       <ScrollManager />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/work" element={<Home />} />
+        <Route path="/craft" element={<Home />} />
+        <Route path="/proof" element={<Home />} />
+        <Route path="/contact" element={<Home />} />
         <Route path="/work/:slug" element={<CaseStudy />} />
         <Route path="/studio" element={<Studio />} />
         <Route path="*" element={<Navigate to="/" replace />} />

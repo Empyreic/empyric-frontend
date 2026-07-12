@@ -57,12 +57,25 @@
   inset: 0;
   z-index: 4;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
   will-change: opacity, transform;
+}
+.inner::-webkit-scrollbar {
+  width: 6px;
+}
+.inner::-webkit-scrollbar-track {
+  background: transparent;
+}
+.inner::-webkit-scrollbar-thumb {
+  background: rgba(241, 237, 227, 0.15);
+  border-radius: 3px;
 }
 .hero {
   width: 100%;
   padding: 0 var(--shell-x);
+  box-sizing: border-box;
+  margin: auto 0;
 }
 .content {
   max-width: 40rem;
@@ -185,10 +198,11 @@
 
 @media (max-width: 880px) {
   .inner {
-    align-items: flex-end;
+    justify-content: flex-end;
   }
   .hero {
-    padding-bottom: 7rem;
+    padding: 5.5rem var(--shell-x) 7rem;
+    margin: 0;
   }
   .content {
     max-width: 100%;
