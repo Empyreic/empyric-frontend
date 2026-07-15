@@ -77,10 +77,10 @@
   bottom: 0;
   height: 100%;
   background-image: url('/clouda.webp');
-  background-size: auto 100%;
-  opacity: 0.35;
-  filter: blur(1px) brightness(1.6);
-  animation: scrollBand1 140s linear infinite;
+  background-size: auto 160%;
+  opacity: 0.26;
+  filter: blur(1px) brightness(1.3);
+  animation: scrollBand1 800s linear infinite;
 }
 
 /* Band 2 — slightly lifted, medium speed */
@@ -88,11 +88,11 @@
   bottom: 0;
   height: 85%;
   background-image: url('/cloudb.webp');
-  background-size: auto 85%;
+  background-size: auto 135%;
   background-position: 0 bottom;
-  opacity: 0.22;
-  filter: blur(4px) brightness(1.4);
-  animation: scrollBand2 100s linear infinite;
+  opacity: 0.18;
+  filter: blur(4px) brightness(1.2);
+  animation: scrollBand2 600s linear infinite;
 }
 
 /* Band 3 — upper portion, fastest of the three */
@@ -100,11 +100,11 @@
   bottom: 0;
   height: 65%;
   background-image: url('/cloudc.webp');
-  background-size: auto 65%;
+  background-size: auto 110%;
   background-position: 0 bottom;
-  opacity: 0.14;
-  filter: blur(8px) brightness(1.6);
-  animation: scrollBand3 70s linear infinite;
+  opacity: 0.12;
+  filter: blur(8px) brightness(1.1);
+  animation: scrollBand3 450s linear infinite;
 }
 
 /* Floor blur — frosted glass at the very bottom edge */
@@ -124,26 +124,44 @@
 
 /* Scroll rightward — very slow */
 @keyframes scrollBand1 {
-  from { background-position-x: 0; }
-  to   { background-position-x: 3000px; }
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: 3000px;
+  }
 }
 
 /* Scroll leftward */
 @keyframes scrollBand2 {
-  from { background-position-x: 0; }
-  to   { background-position-x: -3000px; }
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: -3000px;
+  }
 }
 
 /* Scroll rightward, slightly faster */
 @keyframes scrollBand3 {
-  from { background-position-x: 0; }
-  to   { background-position-x: 3000px; }
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: 3000px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .cloudBand1,
   .cloudBand2,
-  .cloudBand3 { animation: none !important; }
+  .cloudBand3 {
+    animation: none !important;
+  }
 }
 
 
@@ -227,8 +245,15 @@
 }
 
 @keyframes pulseLight {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 .signalsTitle {
@@ -311,8 +336,15 @@
 }
 
 @keyframes pulseExpand {
-  0% { transform: scale(0.5); opacity: 0.8; }
-  100% { transform: scale(1.5); opacity: 0; }
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
 }
 
 .rhythmCycle {
@@ -322,8 +354,13 @@
 }
 
 @keyframes spinCycle {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .accessNodes {
@@ -334,8 +371,13 @@
 }
 
 @keyframes floatNodes {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-3px); }
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-3px);
+  }
 }
 
 /* Values (Bento Grid) Section */
@@ -357,20 +399,19 @@
 
 .valueCard {
   position: relative;
-  background: rgba(17, 21, 34, 0.2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(241, 237, 227, 0.05);
-  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
   overflow: hidden;
   transition: border-color 0.4s var(--ease), transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 
 .valueCard:hover {
-  border-color: rgba(232, 212, 167, 0.18);
+  border-color: rgba(236, 216, 179, 0.28);
   transform: translateY(-4px);
-  box-shadow: 
-    0 15px 30px rgba(0, 0, 0, 0.25),
+  box-shadow:
+    var(--shadow-glow),
+    var(--shadow-md),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
@@ -383,11 +424,9 @@
   pointer-events: none;
   opacity: 0;
   z-index: 0;
-  background: radial-gradient(
-    320px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-    rgba(232, 212, 167, 0.06),
-    transparent 80%
-  );
+  background: radial-gradient(320px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+      rgba(232, 212, 167, 0.06),
+      transparent 80%);
   transition: opacity 0.5s var(--ease);
 }
 
@@ -580,20 +619,19 @@
 
 .member {
   position: relative;
-  background: rgba(17, 21, 34, 0.2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(241, 237, 227, 0.05);
-  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
   overflow: hidden;
   transition: border-color 0.4s var(--ease), transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 
 .member:hover {
-  border-color: rgba(232, 212, 167, 0.18);
+  border-color: rgba(236, 216, 179, 0.28);
   transform: translateY(-4px);
-  box-shadow: 
-    0 20px 45px rgba(0, 0, 0, 0.25),
+  box-shadow:
+    var(--shadow-glow),
+    var(--shadow-md),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
@@ -733,11 +771,12 @@
   text-align: center;
   padding: 6.5rem 2rem;
   margin-top: 7rem;
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(17, 21, 34, 0.15) 0%, rgba(8, 11, 20, 0.35) 100%);
-  border: 1px solid rgba(241, 237, 227, 0.04);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(18, 24, 41, 0.15) 0%, rgba(10, 14, 26, 0.45) 100%);
+  border: 1px solid var(--border-soft);
   overflow: hidden;
   z-index: 1;
+  box-shadow: var(--shadow-md);
 }
 
 .ctaGlow {

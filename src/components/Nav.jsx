@@ -16,7 +16,19 @@ const LINKS = [
 export default function Nav() {
   const theme = "dark";
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  // Handle scroll detection for glassmorphic styling
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 24);
+    };
+    // Initialize state
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Any navigation (route or in-page hash) closes the mobile menu.
   useEffect(() => {
@@ -38,6 +50,7 @@ export default function Nav() {
       className={styles.nav}
       data-theme={theme}
       data-open={open || undefined}
+      data-scrolled={scrolled || undefined}
     >
       <div className={styles.inner}>
         <Link className={styles.wordmark} to="/" aria-label="Empyreic home">

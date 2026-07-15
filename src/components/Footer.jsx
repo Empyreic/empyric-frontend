@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import BrandMascot from "./BrandMascot.jsx";
+import CloudBands from "./CloudBands.jsx";
 import styles from "./Footer.module.css";
 
 const EMAIL = "hello@empyreic.studio";
@@ -8,6 +9,7 @@ const EMAIL = "hello@empyreic.studio";
 export default function Footer() {
   return (
     <footer className={styles.footer}>
+      <CloudBands />
       <div className={styles.inner}>
         <div className={styles.brand}>
           <Link className={styles.wordmark} to="/" aria-label="Empyreic home">

@@ -11,15 +11,9 @@ const ScrollCue = forwardRef(function ScrollCue(_props, ref) {
       ref={ref}
     >
       <span>Scroll to enter</span>
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-        <path
-          d="M12 5v14M6 13l6 6 6-6"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+      <svg viewBox="0 0 24 36" width="14" height="22" aria-hidden="true" className={styles.mouseIcon}>
+        <rect x="2" y="2" width="20" height="32" rx="10" fill="none" stroke="currentColor" strokeWidth="2" />
+        <line x1="12" y1="8" x2="12" y2="14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className={styles.mouseWheel} />
       </svg>
     </a>
   );

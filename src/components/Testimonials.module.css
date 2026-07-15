@@ -130,31 +130,57 @@
   flex-direction: column;
   align-items: center;
   gap: 0.15rem;
-  padding: 0.7rem 1.2rem;
-  background: transparent;
-  border: 1px solid var(--ivory-ghost);
-  border-radius: 999px;
+  padding: 0.8rem 1.4rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  color: var(--ivory-faint);
+  color: var(--text-secondary);
   font-family: var(--sans);
-  transition: border-color 0.4s var(--ease), color 0.4s var(--ease),
-    background 0.4s var(--ease), transform 0.4s var(--ease);
+  position: relative;
+  overflow: hidden;
+  transition: 
+    border-color 0.4s var(--ease), 
+    color 0.4s var(--ease),
+    background-color 0.4s var(--ease), 
+    transform 0.4s var(--ease);
 }
 .tab:hover {
-  color: var(--ivory-dim);
-  border-color: rgba(231, 207, 161, 0.34);
+  color: var(--text-primary);
+  border-color: rgba(236, 216, 179, 0.28);
   transform: translateY(-2px);
 }
 .tab:active {
-  transform: translateY(0) scale(0.96);
-  transition-duration: 0.12s;
+  transform: translateY(0) scale(0.97);
+  transition-duration: 0.1s;
 }
 .tabActive,
 .tabActive:hover {
-  color: #1a1408;
-  border-color: transparent;
-  background: linear-gradient(180deg, var(--gold-core), var(--champagne));
-  box-shadow: 0 10px 30px -12px rgba(247, 230, 194, 0.7);
+  color: var(--text-primary);
+  border-color: rgba(236, 216, 179, 0.4);
+  background-color: rgba(18, 24, 41, 0.8);
+  box-shadow: var(--shadow-glow);
+}
+.tabProgress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--champagne-soft), var(--champagne));
+  width: 100%;
+  transform-origin: left;
+  animation: tabProgressAnim 6.5s linear forwards;
+}
+.testimonials:hover .tabProgress {
+  animation-play-state: paused;
+}
+@keyframes tabProgressAnim {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 .tabName {
   font-size: 0.86rem;

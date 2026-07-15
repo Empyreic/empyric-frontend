@@ -62,18 +62,6 @@ export default function Work({ reduced }) {
     const offset = (stage.offsetWidth - cardWidth) / 2;
 
     track.style.transform = `translateX(${offset - activeIndex * stepWidth}px)`;
-
-    Array.from(cards).forEach((card, i) => {
-      if (i === activeIndex) {
-        card.style.transform = "scale(1)";
-        card.style.opacity = "1";
-        card.style.pointerEvents = "auto";
-      } else {
-        card.style.transform = "scale(0.87)";
-        card.style.opacity = "0.4";
-        card.style.pointerEvents = "auto"; // allows click to shift index
-      }
-    });
   };
 
   useEffect(() => {
@@ -185,7 +173,7 @@ export default function Work({ reduced }) {
           <div ref={trackRef} className={styles.track}>
             {work.map((c, i) => (
               <div
-                className={styles.card}
+                className={`${styles.card} ${i === activeIndex ? styles.cardActive : ""}`}
                 key={c.id}
                 data-case
                 onClick={() => handleCardClick(i, c.id)}

@@ -74,32 +74,47 @@
   flex: 0 0 clamp(380px, 48vw, 620px);
   height: clamp(500px, 64vh, 660px);
   margin: 0 18px;
-  border-radius: 12px;
-  border: 1px solid rgba(241, 237, 227, 0.08);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(255, 255, 255, 0.005)
-  );
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-card);
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  opacity: 0.45;
+  transform: scale(0.88);
   transition: 
-    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1), 
-    opacity 0.55s var(--ease), 
-    border-color 0.45s var(--ease);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+    transform 0.5s var(--ease), 
+    opacity 0.5s var(--ease), 
+    border-color 0.4s var(--ease),
+    box-shadow 0.4s var(--ease);
+  box-shadow: var(--shadow-sm);
   outline: none;
   user-select: none;
 }
 
-.card:focus-visible {
-  border-color: rgba(232, 212, 167, 0.3);
+.cardActive {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: var(--shadow-md);
 }
 
-.card:hover {
-  border-color: rgba(232, 212, 167, 0.2);
-  transform: scale(1.03) !important;
+.card:focus-visible {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Inactive card hover */
+.card:not(.cardActive):hover {
+  opacity: 0.7;
+  transform: scale(0.91);
+  border-color: rgba(236, 216, 179, 0.15);
+}
+
+/* Active card hover scale and glow */
+.cardActive:hover {
+  transform: scale(1.025);
+  border-color: rgba(236, 216, 179, 0.28);
+  box-shadow: var(--shadow-glow), var(--shadow-lg);
 }
 
 /* Image Background Wrapper */
@@ -118,8 +133,8 @@
   transition: transform 0.65s var(--ease), opacity 0.65s var(--ease);
 }
 
-.card:hover .image {
-  transform: scale(1.08);
+.cardActive:hover .image {
+  transform: scale(1.06);
   opacity: 0.5;
 }
 
@@ -134,8 +149,8 @@
   inset: 0;
   background: linear-gradient(
     180deg, 
-    rgba(8, 11, 20, 0.1) 0%, 
-    rgba(8, 11, 20, 0.85) 85%
+    rgba(6, 9, 19, 0.1) 0%, 
+    rgba(6, 9, 19, 0.85) 85%
   );
   z-index: 2;
 }
@@ -156,7 +171,7 @@
   font-family: var(--serif);
   font-size: 1.25rem;
   font-weight: 500;
-  color: #f1ede3;
+  color: var(--text-primary);
 }
 
 .sector {
@@ -172,18 +187,18 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(11, 15, 27, 0.88);
+  background: rgba(10, 14, 26, 0.82);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(241, 237, 227, 0.08);
+  border-top: 1px solid var(--border-soft);
   transform: translateY(66%);
-  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 0.45s var(--ease);
   padding: 1.5rem;
   box-sizing: border-box;
   z-index: 4;
 }
 
-.card:hover .panel {
+.cardActive:hover .panel {
   transform: translateY(0);
 }
 

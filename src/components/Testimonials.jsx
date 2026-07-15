@@ -117,6 +117,7 @@ export default function Testimonials({ reduced }) {
           >
             <span className={styles.tabName}>{t.name}</span>
             <span className={styles.tabCo}>{t.company}</span>
+            {i === active && <div className={styles.tabProgress} />}
           </button>
         ))}
       </div>

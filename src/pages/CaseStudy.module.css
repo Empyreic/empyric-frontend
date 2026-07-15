@@ -158,8 +158,8 @@
   position: relative;
   min-height: 36rem;
   overflow: hidden;
-  border: 1px solid rgba(246, 241, 231, 0.16);
-  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
   background:
     linear-gradient(135deg, rgba(246, 241, 231, 0.08), rgba(246, 241, 231, 0.015) 48%, rgba(7, 10, 20, 0.66)),
     color-mix(in oklab, var(--accent), var(--indigo-900) 78%);
@@ -370,11 +370,11 @@
 .blockStrong {
   margin-left: min(8vw, 6rem);
   padding: 2rem;
-  border: 1px solid rgba(246, 241, 231, 0.15);
-  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
   background:
     linear-gradient(135deg, color-mix(in oklab, var(--accent), transparent 88%), rgba(246, 241, 231, 0.02)),
-    rgba(7, 10, 20, 0.26);
+    var(--bg-card);
 }
 
 .blockTag {
@@ -442,11 +442,11 @@
   position: relative;
   min-height: 21rem;
   padding: 1.25rem;
-  border: 1px solid rgba(246, 241, 231, 0.15);
-  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
   background:
     linear-gradient(145deg, rgba(246, 241, 231, 0.075), rgba(246, 241, 231, 0.018)),
-    rgba(7, 10, 20, 0.36);
+    var(--bg-card);
 }
 
 .step:nth-child(2) {
@@ -503,8 +503,8 @@
 
 .shotFrame {
   overflow: hidden;
-  border: 1px solid var(--ivory-ghost);
-  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
   aspect-ratio: 16 / 11;
   background: var(--indigo-700);
 }
@@ -581,18 +581,20 @@
   margin: 6rem auto 0;
   padding: 1.4rem;
   overflow: hidden;
-  border: 1px solid rgba(246, 241, 231, 0.16);
-  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
   background:
-    linear-gradient(120deg, color-mix(in oklab, var(--next-accent), transparent 86%), rgba(246, 241, 231, 0.025)),
-    rgba(7, 10, 20, 0.42);
-  transition: border-color 0.35s var(--ease), transform 0.35s var(--ease);
+    linear-gradient(120deg, color-mix(in oklab, var(--next-accent), transparent 86%), rgba(245, 242, 235, 0.025)),
+    var(--bg-card);
+  transition: border-color 0.35s var(--ease), transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  box-shadow: var(--shadow-sm);
 }
 
 .next:hover,
 .next:focus-visible {
-  border-color: color-mix(in oklab, var(--next-accent), rgba(246, 241, 231, 0.3) 30%);
+  border-color: color-mix(in oklab, var(--next-accent), rgba(245, 242, 235, 0.3) 30%);
   transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .nextTitle {
@@ -653,28 +655,62 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.9rem;
-  padding: 0.74rem 1.3rem;
-  border-radius: 999px;
+  gap: var(--space-2);
+  font-family: var(--sans);
   font-size: 0.92rem;
-  font-weight: 600;
-  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  padding: 0.72rem 1.6rem;
+  cursor: pointer;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: 
+    transform 0.4s var(--ease), 
+    background 0.4s var(--ease),
+    box-shadow 0.4s var(--ease), 
+    border-color 0.4s var(--ease), 
+    color 0.4s var(--ease);
 }
 
 .nbtnPrimary {
-  color: #1a1408;
+  color: #0e0a05;
+  font-weight: 600;
   background: linear-gradient(180deg, var(--gold-core), var(--champagne));
+  box-shadow: 
+    0 1px 0px rgba(255, 255, 255, 0.6) inset,
+    0 12px 30px -10px rgba(236, 216, 179, 0.45),
+    var(--shadow-sm);
+}
+
+.nbtnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 1px 0px rgba(255, 255, 255, 0.8) inset,
+    0 16px 36px -10px rgba(236, 216, 179, 0.6),
+    var(--shadow-md);
 }
 
 .nbtnGhost {
-  border: 1px solid var(--ivory-ghost);
-  color: var(--ivory);
-  background: rgba(246, 241, 231, 0.02);
+  border: 1px solid var(--border-soft);
+  color: var(--text-primary);
+  background: rgba(245, 242, 235, 0.01);
+  box-shadow: var(--shadow-sm);
 }
 
-.nbtn:hover,
-.nbtn:focus-visible {
-  transform: translateY(-2px);
+.nbtnGhost:hover {
+  border-color: rgba(236, 216, 179, 0.45);
+  background: rgba(236, 216, 179, 0.05);
+  box-shadow: 0 4px 20px -4px rgba(236, 216, 179, 0.08);
+  transform: translateY(-1.5px);
+}
+
+.nbtn:active {
+  transform: scale(0.96);
+  transition-duration: 0.1s;
+}
+
+.nbtnPrimary:active {
+  transform: translateY(-1px) scale(0.96);
 }
 
 @media (max-width: 1100px) {

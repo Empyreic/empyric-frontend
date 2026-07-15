@@ -70,23 +70,30 @@
 }
 
 .meta {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.6rem 2.6rem;
   margin: 0;
   padding-top: 2rem;
-  border-top: 1px solid var(--ivory-ghost);
+  border-top: 1px solid var(--border-soft);
 }
 .meta div {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.5rem;
 }
-.meta dt {
+.metaLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ivory-faint);
+  color: var(--text-muted);
+}
+.metaLabel svg {
+  color: var(--champagne-soft);
+  flex-shrink: 0;
 }
 .meta dd {
   margin: 0;
@@ -154,5 +161,79 @@
   .inner {
     grid-template-columns: 1fr;
     gap: 2.6rem;
+  }
+}
+
+.emailRow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.copyBtn {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: color 0.3s var(--ease), background-color 0.3s var(--ease);
+}
+
+.copyBtn:hover {
+  color: var(--text-primary);
+  background-color: rgba(245, 242, 235, 0.03);
+}
+
+.copiedText {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--champagne-soft);
+  animation: twinkle 1s var(--ease) infinite;
+}
+
+.availabilityRow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  background-color: #2ec866;
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+  box-shadow: 0 0 8px rgba(46, 200, 102, 0.6);
+}
+
+.pulseDot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid #2ec866;
+  animation: pulseOuter 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes pulseOuter {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .meta {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
   }
 }
