@@ -40,7 +40,6 @@ export default function Footer() {
             <h3 className={styles.colTitle}>Legal</h3>
             <Link to="/legal/privacy-policy">Privacy Policy</Link>
             <Link to="/legal/terms-and-conditions">Terms &amp; Conditions</Link>
-            <Link to="/legal/cookies">Cookies</Link>
           </div>
         </nav>
       </div>

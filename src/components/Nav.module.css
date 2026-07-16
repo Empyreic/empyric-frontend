@@ -6,20 +6,6 @@
   z-index: 30;
   background: transparent;
   border-bottom: 1px solid transparent;
-  transition: 
-    background-color 0.5s var(--ease),
-    backdrop-filter 0.5s var(--ease),
-    border-color 0.5s var(--ease),
-    box-shadow 0.5s var(--ease);
-}
-
-/* Glassmorphism triggered when scrolled down */
-.nav[data-scrolled] {
-  background-color: rgba(6, 9, 19, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom-color: var(--border-soft);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
 }
 
 .inner {
@@ -29,11 +15,6 @@
   align-items: center;
   gap: 2rem;
   padding: 1.1rem var(--shell-x);
-  transition: padding 0.5s var(--ease);
-}
-
-.nav[data-scrolled] .inner {
-  padding: 0.85rem var(--shell-x);
 }
 
 .wordmark {

@@ -1,35 +1,35 @@
 export const legalPages = {
   "privacy-policy": {
     title: "Privacy Policy",
-    eyebrow: "Legal placeholder",
+    eyebrow: "Legal",
     updated: "July 12, 2026",
     description:
-      "Temporary privacy policy context for Empyreic Studio. Replace this page with counsel-reviewed language before launch.",
+      "How Empyreic Studio handles information shared through this website.",
     sections: [
       {
         title: "Overview",
         body:
-          "Empyreic Studio is a design and engineering studio. This placeholder explains, in broad terms, how we expect to handle basic website and enquiry information.",
+          "Empyreic Studio collects only the information needed to run the website, respond to enquiries, and improve the experience.",
       },
       {
-        title: "Information We May Collect",
+        title: "Information We Collect",
         body:
-          "We may receive contact details, project notes, email metadata, and analytics events when you use the site or contact us. We do not intend to collect sensitive personal information through this website.",
+          "If you contact us, we may receive your name, email address, company details, project notes, and message content. If analytics are accepted, we may collect basic page-view and device information.",
       },
       {
-        title: "How We May Use Information",
+        title: "How We Use It",
         body:
-          "We may use information to respond to enquiries, scope projects, improve the website, understand traffic patterns, and maintain site security.",
+          "We use this information to reply to you, scope potential work, understand website performance, and keep the site secure.",
       },
       {
         title: "Sharing",
         body:
-          "We do not sell personal information. We may share limited information with service providers that help us host, analyse, secure, or operate the website and studio workflow.",
+          "We do not sell personal information. We may share limited data with service providers that help us host, secure, analyse, or operate the website.",
       },
       {
         title: "Retention",
         body:
-          "We keep information only as long as reasonably needed for the purpose it was provided, unless a longer period is required for business, legal, or security reasons.",
+          "We keep information only as long as needed for the reason it was provided, unless a longer period is required for legal, security, or business reasons.",
       },
       {
         title: "Contact",
@@ -40,20 +40,20 @@ export const legalPages = {
   },
   "terms-and-conditions": {
     title: "Terms and Conditions",
-    eyebrow: "Legal placeholder",
+    eyebrow: "Legal",
     updated: "July 12, 2026",
     description:
-      "Temporary terms context for Empyreic Studio. Replace this page with counsel-reviewed language before launch.",
+      "Simple terms for using the Empyreic Studio website.",
     sections: [
       {
         title: "Website Use",
         body:
-          "This website is provided for general information about Empyreic Studio. By using it, you agree not to misuse, disrupt, scrape aggressively, or interfere with the site.",
+          "This website is provided for general information about Empyreic Studio. Please do not misuse, disrupt, scrape aggressively, or interfere with it.",
       },
       {
         title: "No Client Relationship",
         body:
-          "Submitting an enquiry or emailing the studio does not create a client relationship. Work begins only after a written proposal, scope, and agreement are accepted by both sides.",
+          "Sending an enquiry or email does not create a client relationship. Work begins only after both sides accept a written proposal, scope, and agreement.",
       },
       {
         title: "Content Ownership",
@@ -63,17 +63,17 @@ export const legalPages = {
       {
         title: "Project Terms",
         body:
-          "Each engagement should be governed by a separate written agreement covering scope, fees, timelines, intellectual property, confidentiality, warranties, and support.",
+          "Each project is governed by its own written agreement covering scope, fees, timelines, intellectual property, confidentiality, warranties, and support.",
       },
       {
-        title: "Limitation",
+        title: "Site Availability",
         body:
-          "The site is provided as-is. Placeholder terms should not be relied on as a final limitation of liability or warranty clause.",
+          "We aim to keep the website available and accurate, but it is provided as-is and may change without notice.",
       },
       {
         title: "Contact",
         body:
-          "Questions about these temporary terms can be sent to hello@empyreic.studio.",
+          "Questions about these terms can be sent to hello@empyreic.studio.",
       },
     ],
   },

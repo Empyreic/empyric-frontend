@@ -5,6 +5,7 @@ import Grain from "./components/Grain.jsx";
 import PostHogPageView from "./components/PostHogPageView.jsx";
 import Nav from "./components/Nav.jsx";
 import Footer from "./components/Footer.jsx";
+import CookieConsent from "./components/CookieConsent.jsx";
 import Seo from "./components/Seo.jsx";
 import ScrollManager from "./components/ScrollManager.jsx";
 import Home from "./pages/Home.jsx";
@@ -41,6 +42,7 @@ export default function App() {
         </Routes>
       </Suspense>
       <Footer />
+      <CookieConsent />
     </>
   );
 }

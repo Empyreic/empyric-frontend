@@ -18,7 +18,7 @@ const FRAME_BASE = "/frames";
 const FRAME_COUNT = 120;
 const FRAME_W = 1280;
 const FRAME_H = 720;
-const frameUrl = (i) =>`${FRAME_BASE}/${String(i + 1).padStart(4, "0")}.png`;
+const frameUrl = (i) => `${FRAME_BASE}/frame_${String(i + 1).padStart(4, "0")}.jpg`;
 /**
  * Pins the stage and scrubs a timeline against scroll:
  *   - the canvas paints the frame matching scroll position (Apple-style)

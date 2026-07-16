@@ -22,19 +22,11 @@ export default function LegalPage() {
           <p className={styles.updated}>Last updated: {page.updated}</p>
         </header>
 
-        <div className={styles.notice}>
-          This is temporary placeholder content and is not legal advice. Review
-          and replace it before public launch or formal client use.
-        </div>
-
         <div className={styles.sections}>
-          {page.sections.map((section, index) => (
+          {page.sections.map((section) => (
             <section className={styles.section} key={section.title}>
-              <span className={styles.index}>{String(index + 1).padStart(2, "0")}</span>
-              <div>
-                <h2 className={styles.sectionTitle}>{section.title}</h2>
-                <p className={styles.body}>{section.body}</p>
-              </div>
+              <h2 className={styles.sectionTitle}>{section.title}</h2>
+              <p className={styles.body}>{section.body}</p>
             </section>
           ))}
         </div>
