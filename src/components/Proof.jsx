@@ -24,20 +24,20 @@ export default function Proof({ reduced }) {
       .timeline({ easing: "easeOutExpo" })
       .add({
         targets: root.querySelectorAll("[data-proof-head]"),
-        translateY: [30, 0],
+        translateY: [20, 0],
         opacity: [0, 1],
-        duration: 950,
-        delay: anime.stagger(100),
+        duration: 650,
+        delay: anime.stagger(80),
       })
       .add(
         {
           targets: root.querySelectorAll("[data-proof-item]"),
-          translateY: [34, 0],
+          translateY: [20, 0],
           opacity: [0, 1],
-          duration: 900,
-          delay: anime.stagger(80),
+          duration: 600,
+          delay: anime.stagger(60),
         },
-        "-=620"
+        "-=460"
       );
 
     return () => motion.pause();

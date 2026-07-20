@@ -3,11 +3,7 @@
   z-index: 1;
   min-height: 100svh;
   padding: calc(7rem + 4vh) var(--shell-x) 7rem;
-  background:
-    linear-gradient(90deg, rgba(246, 241, 231, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(246, 241, 231, 0.03) 1px, transparent 1px),
-    linear-gradient(158deg, var(--indigo-900), var(--indigo-800) 58%, #0e1428);
-  background-size: 88px 88px, 88px 88px, auto;
+  background: var(--bg-deep);
   overflow: hidden;
 }
 
@@ -43,7 +39,7 @@
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0;
-  color: var(--ivory);
+  color: var(--text-primary);
 }
 
 .lead {
@@ -51,7 +47,7 @@
   margin: 0;
   font-size: clamp(1rem, 1.4vw, 1.16rem);
   line-height: 1.68;
-  color: var(--ivory-dim);
+  color: var(--text-secondary);
 }
 
 .updated {

@@ -6,6 +6,17 @@
   z-index: 30;
   background: transparent;
   border-bottom: 1px solid transparent;
+  transition:
+    background var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease),
+    backdrop-filter var(--duration-fast) var(--ease);
+}
+
+/* Nav stays transparent always — scroll adds only depth blur, not background */
+.nav[data-scrolled] {
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  border-bottom-color: rgba(245, 242, 235, 0.05);
 }
 
 .inner {
@@ -25,19 +36,24 @@
   font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: #ffffff; /* White logo text */
+  color: var(--text-primary);
+  transition: color var(--duration-fast) var(--ease);
 }
+
 .glyph {
   display: inline-flex;
   line-height: 0;
-  color: #ffffff; /* White logo glyph */
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.25));
+  color: var(--text-primary);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.18));
   cursor: pointer;
-  transition: transform 0.5s var(--ease-out-expo), color 0.5s var(--ease);
+  transition:
+    transform var(--duration-standard) var(--ease-out-expo),
+    color var(--duration-fast) var(--ease);
 }
+
 .wordmark:hover .glyph {
   transform: translateY(-1.5px) scale(1.05);
-  color: var(--champagne-bright);
+  color: var(--champagne);
 }
 
 .links {
@@ -46,12 +62,16 @@
   margin-left: auto;
   font-size: 0.9rem;
 }
+
 .links a {
-  color: #ffffff; /* White navbar links */
+  color: var(--text-primary);
   position: relative;
   padding: 0.25rem 0;
-  transition: color 0.3s var(--ease);
+  transition:
+    color var(--duration-fast) var(--ease);
 }
+
+/* Underline reveal on hover */
 .links a::after {
   content: "";
   position: absolute;
@@ -62,14 +82,26 @@
   background: var(--champagne);
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 0.4s var(--ease);
+  transition: transform var(--duration-standard) var(--ease);
 }
+
 .links a:hover,
 .links a:focus-visible {
-  color: var(--champagne); /* Luxury gold color transition on hover */
+  color: var(--champagne);
 }
+
 .links a:hover::after {
   transform: scaleX(1);
+}
+
+/* Active section — static champagne underline */
+.links a[data-active] {
+  color: var(--champagne);
+}
+
+.links a[data-active]::after {
+  transform: scaleX(1);
+  opacity: 0.7;
 }
 
 /* Light theme support */
@@ -78,18 +110,22 @@
 .nav[data-theme="light"] .cta {
   color: #121016;
 }
+
 .nav[data-theme="light"] .glyph {
   color: #121016;
   filter: none;
 }
+
 .nav[data-theme="light"] .links a::after {
   background: #121016;
 }
+
 .nav[data-theme="light"] .cta {
   border: 1px solid #121016;
   background: #fff;
   box-shadow: 2px 2px 0 #121016;
 }
+
 .nav[data-theme="light"] .cta:hover {
   transform: translate(1px, 1px);
   box-shadow: 1px 1px 0 #121016;
@@ -113,27 +149,32 @@
   background: none;
   cursor: pointer;
 }
+
 .toggleBar {
   display: block;
   width: 24px;
   height: 1.6px;
   margin: 0 auto;
   border-radius: 2px;
-  background: #ffffff;
-  transition: transform 0.32s var(--ease), opacity 0.32s var(--ease);
+  background: var(--text-primary);
+  transition:
+    transform var(--duration-standard) var(--ease),
+    opacity var(--duration-standard) var(--ease);
 }
+
 .nav[data-theme="light"] .toggleBar {
   background: #15121c;
 }
+
 .nav[data-open] .toggleBar:nth-child(1) {
   transform: translateY(3.8px) rotate(45deg);
 }
+
 .nav[data-open] .toggleBar:nth-child(2) {
   transform: translateY(-3.8px) rotate(-45deg);
 }
 
-/* Panel is rendered with the `hidden` attribute when closed; on desktop it
-   never displays because the toggle that opens it is hidden too. */
+/* Panel — hidden on desktop, shown when mobile menu is open */
 .panel {
   display: none;
   position: fixed;
@@ -142,26 +183,41 @@
   top: 0;
   z-index: 1;
   padding: 5.4rem var(--shell-x) 2.4rem;
-  background: rgba(7, 10, 20, 0.96);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--ivory-ghost);
+  background: rgba(6, 9, 19, 0.96);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid var(--border-soft);
   box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.7);
 }
+
 .panelLinks {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
 }
+
 .panelLinks a {
-  padding: 0.85rem 0;
+  padding: 0 0;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
   font-family: var(--serif);
   font-size: 1.6rem;
-  color: var(--ivory);
-  border-bottom: 1px solid var(--ivory-ghost);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-soft);
+  transition: color var(--duration-fast) var(--ease);
+  -webkit-tap-highlight-color: transparent;
 }
+
+.panelLinks a:hover,
+.panelLinks a[data-active] {
+  color: var(--champagne);
+}
+
 .panelLinks a:last-of-type {
   border-bottom: 0;
 }
+
 .panelCta {
   justify-content: center;
   margin-top: 1.4rem;
@@ -200,6 +256,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .nav,
+  .nav[data-scrolled],
   .toggleBar {
     transition: none;
   }

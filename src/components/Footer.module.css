@@ -2,10 +2,11 @@
   position: relative;
   z-index: 2;
   padding: clamp(4rem, 8vh, 7rem) var(--shell-x) 2.4rem;
-  background: linear-gradient(180deg, #060913, #0a1324);
+  background: linear-gradient(180deg, var(--bg-deep), #0a1324);
   overflow: hidden;
 }
 
+/* Top border gradient — champagne fade */
 .footer::before {
   content: "";
   position: absolute;
@@ -40,6 +41,11 @@
   letter-spacing: 0.02em;
   margin-bottom: 1.2rem;
   color: var(--text-primary);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.wordmark:hover {
+  color: var(--champagne);
 }
 
 .glyph {
@@ -48,7 +54,7 @@
   color: var(--champagne-soft);
   filter: drop-shadow(0 0 8px rgba(236, 216, 179, 0.35));
   cursor: pointer;
-  transition: transform 0.5s var(--ease-out-expo);
+  transition: transform var(--duration-standard) var(--ease-out-expo);
   animation: starShimmer 5.5s var(--ease) infinite;
 }
 
@@ -60,7 +66,7 @@
   margin: 0;
   font-size: 0.92rem;
   line-height: 1.6;
-  color: #eceae3;
+  color: var(--text-secondary);
 }
 
 .cols {
@@ -86,14 +92,17 @@
 
 .col a {
   font-size: 0.92rem;
-  color: #eceae3;
+  color: var(--text-secondary);
   width: fit-content;
-  transition: color 0.4s var(--ease), transform 0.4s var(--ease);
+  transition:
+    color     var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease);
 }
 
+/* Subtle translateX — 3px instead of 5px */
 .col a:hover {
-  color: var(--champagne-bright);
-  transform: translateX(5px);
+  color: var(--text-primary);
+  transform: translateX(3px);
 }
 
 .base {
@@ -114,7 +123,6 @@
     grid-template-columns: 1fr;
     gap: 2.4rem;
   }
-
   .cols {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

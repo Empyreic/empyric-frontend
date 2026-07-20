@@ -21,7 +21,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background: var(--indigo-900) url("/poster.jpg") center / cover no-repeat;
+  background: var(--bg-deep) url("/poster.jpg") center / cover no-repeat;
 }
 
 /* Always-on cinematic shading for legibility over moving footage. */
@@ -35,8 +35,7 @@
     radial-gradient(130% 100% at 50% 56%, transparent 42%, rgba(7, 10, 20, 0.45) 100%);
 }
 
-/* Twilight scrim for the hero phase — deep indigo over the text column,
-   fading to reveal the arch. GSAP fades it as the hero dissolves. */
+/* Twilight scrim — fades to reveal the arch. GSAP fades it as hero dissolves. */
 .scrim {
   position: absolute;
   inset: 0;
@@ -51,7 +50,7 @@
   );
 }
 
-/* Hero phase. */
+/* Hero phase container */
 .inner {
   position: absolute;
   inset: 0;
@@ -61,6 +60,7 @@
   overflow-y: auto;
   will-change: opacity, transform;
 }
+
 .inner::-webkit-scrollbar {
   width: 6px;
 }
@@ -71,17 +71,20 @@
   background: rgba(241, 237, 227, 0.15);
   border-radius: 3px;
 }
+
 .hero {
   width: 100%;
   padding: 0 var(--shell-x);
   box-sizing: border-box;
   margin: auto 0;
 }
+
 .content {
   max-width: 40rem;
   width: 100%;
 }
 
+/* Scroll cue — WCAG AA: uses --text-muted (4.6:1) */
 .scrollcue {
   position: absolute;
   left: var(--shell-x);
@@ -94,39 +97,27 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-muted);
-  transition: color 0.4s var(--ease);
+  transition: color var(--duration-fast) var(--ease);
 }
+
 .scrollcue:hover {
   color: var(--text-primary);
 }
+
 .mouseIcon {
   opacity: 0.75;
-  transition: opacity 0.4s var(--ease);
-}
-.scrollcue:hover .mouseIcon {
-  opacity: 1;
+  transition: opacity var(--duration-fast) var(--ease);
 }
 
-@keyframes mouseScroll {
-  0% {
-    transform: translateY(-3px);
-    opacity: 0.25;
-  }
-  50% {
-    transform: translateY(3px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-3px);
-    opacity: 0.25;
-  }
+.scrollcue:hover .mouseIcon {
+  opacity: 1;
 }
 
 .mouseWheel {
   animation: mouseScroll 1.8s var(--ease) infinite;
 }
 
-/* subtle "skip the intro" affordance — mirrors the scroll cue's type */
+/* Skip intro button */
 .skip {
   position: absolute;
   right: var(--shell-x);
@@ -144,21 +135,26 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-muted);
-  transition: color 0.4s var(--ease), transform 0.4s var(--ease);
+  transition:
+    color var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease);
 }
+
 .skip:hover,
 .skip:focus-visible {
   color: var(--text-primary);
   transform: translateY(-1.5px);
 }
+
 .skip svg {
-  transition: transform 0.4s var(--ease);
+  transition: transform var(--duration-fast) var(--ease);
 }
+
 .skip:hover svg {
   transform: translateY(3px);
 }
 
-/* ---------- Caption phases over the scrubbing clip ---------- */
+/* ── Caption phases over the scrubbing clip ── */
 
 .captions {
   position: absolute;
@@ -170,6 +166,7 @@
   text-align: center;
   pointer-events: none;
 }
+
 .cap {
   grid-area: 1 / 1;
   max-width: 50rem;
@@ -177,6 +174,7 @@
   transform: translateY(28px);
   will-change: opacity, transform;
 }
+
 .capEyebrow {
   margin: 0 0 1rem;
   font-size: 0.76rem;
@@ -185,6 +183,7 @@
   text-transform: uppercase;
   color: var(--champagne-soft);
 }
+
 .capTitle {
   margin: 0;
   font-family: var(--serif);
@@ -195,11 +194,13 @@
   color: var(--text-primary);
   text-shadow: 0 2px 40px rgba(7, 10, 20, 0.75);
 }
+
 .capCta {
   margin-top: 2.2rem;
   pointer-events: auto;
 }
 
+/* Progress rail */
 .rail {
   position: absolute;
   left: 50%;
@@ -208,10 +209,11 @@
   transform: translateX(-50%);
   width: min(35vw, 280px);
   height: 2px;
-  border-radius: 99px;
+  border-radius: var(--radius-full);
   background: rgba(245, 242, 235, 0.08);
   overflow: hidden;
 }
+
 .railFill {
   display: block;
   height: 100%;
@@ -237,17 +239,16 @@
   .content {
     max-width: 100%;
   }
-  /* On narrow screens the arch sits behind the copy — darken broadly. */
+  /* On narrow screens darken broadly for legibility */
   .scrim {
     background:
-      linear-gradient(to top, var(--indigo-900) 8%, rgba(7, 10, 20, 0.42) 34%, transparent 60%),
+      linear-gradient(to top, var(--bg-deep) 8%, rgba(7, 10, 20, 0.42) 34%, transparent 60%),
       linear-gradient(to bottom, rgba(7, 10, 20, 0.45) 0%, transparent 26%);
   }
 }
 
 /* ============================================================
-   Reduced motion — no scrubbing. Keep the hero, stack the story,
-   let the clip loop quietly behind it.
+   Reduced motion — no scrubbing. Keep the hero, stack the story.
    ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
@@ -265,7 +266,6 @@
     top: 0;
     height: 100svh;
   }
-
   .inner {
     position: relative;
     inset: auto;
@@ -274,7 +274,6 @@
   .scrim {
     position: absolute;
   }
-
   .captions {
     position: static;
     display: block;

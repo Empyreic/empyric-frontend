@@ -4,38 +4,26 @@
   overflow: visible;
   min-height: 100svh;
   padding-bottom: 6rem;
-  background:
-    linear-gradient(90deg, rgba(246, 241, 231, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(246, 241, 231, 0.03) 1px, transparent 1px),
-    linear-gradient(158deg, var(--indigo-900), var(--indigo-800) 58%, #0e1428);
-  background-size: 88px 88px, 88px 88px, auto;
+  background: var(--bg-deep);
 }
 
+/* Site-consistent radial glow — matches home section vocabulary */
 .page::before {
   content: "";
   position: absolute;
-  inset: -12rem -18rem auto auto;
+  inset: -8rem -12rem auto auto;
   z-index: -2;
-  width: 62rem;
-  height: 58rem;
+  width: 56rem;
+  height: 52rem;
   pointer-events: none;
-  background:
-    conic-gradient(from 230deg at 52% 46%, transparent, color-mix(in oklab, var(--champagne), transparent 62%), transparent 38%),
-    linear-gradient(135deg, transparent 16%, rgba(247, 230, 194, 0.14), transparent 66%);
-  filter: blur(42px);
-  opacity: 0.72;
-}
-
-.page::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(115deg, transparent 0 24%, rgba(246, 241, 231, 0.055) 24.1% 24.3%, transparent 24.4%),
-    linear-gradient(145deg, transparent 0 71%, color-mix(in oklab, var(--champagne), transparent 78%) 71.1% 71.4%, transparent 71.5%);
-  opacity: 0.88;
+  background: radial-gradient(
+    ellipse at 60% 40%,
+    rgba(236, 216, 179, 0.12),
+    rgba(90, 115, 160, 0.05) 50%,
+    transparent 75%
+  );
+  filter: blur(48px);
+  opacity: 0.8;
 }
 
 .wrap {
@@ -189,7 +177,7 @@
   font-size: clamp(3rem, 5.2vw, 4.6rem);
   line-height: 1.05;
   letter-spacing: -0.01em;
-  color: #f1ede3;
+  color: var(--text-primary);
 }
 
 .titleHighlight {
@@ -210,20 +198,20 @@
 
 /* Live operations dashboard (signals) */
 .signals {
-  background: rgba(17, 21, 34, 0.25);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(241, 237, 227, 0.06);
-  border-radius: 12px;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
   padding: 1.5rem;
-  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-sm);
   position: relative;
   z-index: 1;
-  transition: border-color 0.4s var(--ease);
+  transition: border-color var(--duration-fast) var(--ease);
 }
 
 .signals:hover {
-  border-color: rgba(232, 212, 167, 0.15);
+  border-color: var(--border-gold);
 }
 
 .signalsHeader {
@@ -238,10 +226,10 @@
 .signalsDot {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
-  background: #62c462;
-  box-shadow: 0 0 10px #62c462;
-  animation: pulseLight 2s infinite;
+  border-radius: var(--radius-full);
+  background: var(--champagne-soft);
+  box-shadow: 0 0 8px rgba(211, 194, 157, 0.5);
+  animation: pulseLight 2.2s infinite;
 }
 
 @keyframes pulseLight {
@@ -401,9 +389,12 @@
   position: relative;
   background: var(--bg-card);
   border: 1px solid var(--border-soft);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: border-color 0.4s var(--ease), transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  transition:
+    border-color var(--duration-standard) var(--ease),
+    transform    var(--duration-standard) var(--ease),
+    box-shadow   var(--duration-standard) var(--ease);
 }
 
 .valueCard:hover {
@@ -456,11 +447,14 @@
   width: 28px;
   height: 28px;
   opacity: 0.8;
-  transition: transform 0.4s var(--ease), color 0.4s var(--ease), opacity 0.4s var(--ease);
+  transition:
+    transform var(--duration-standard) var(--ease),
+    color     var(--duration-standard) var(--ease),
+    opacity   var(--duration-standard) var(--ease);
 }
 
 .valueCard:hover .valueIcon {
-  transform: scale(1.08) rotate(3deg);
+  transform: scale(1.06) rotate(2deg);
   color: var(--text-primary);
   opacity: 1;
 }
@@ -503,7 +497,7 @@
   line-height: 1.05;
   font-weight: 500;
   letter-spacing: -0.01em;
-  color: #e9e5dc;
+  color: var(--text-primary);
 }
 
 .standardList {
@@ -519,7 +513,7 @@
   grid-template-columns: 3.5rem minmax(0, 1fr);
   gap: 1.5rem;
   padding: 1.5rem 0;
-  transition: transform 0.35s var(--ease);
+  transition: transform var(--duration-fast) var(--ease);
 }
 
 .standardIndicator {
@@ -533,8 +527,10 @@
   font-size: 1.9rem;
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(232, 212, 167, 0.25);
-  transition: color 0.4s var(--ease), -webkit-text-stroke 0.4s var(--ease);
+  -webkit-text-stroke: 1px rgba(236, 216, 179, 0.25);
+  transition:
+    color                var(--duration-standard) var(--ease),
+    -webkit-text-stroke  var(--duration-standard) var(--ease);
 }
 
 .standard:hover .standardNum {
@@ -561,8 +557,8 @@
   margin: 0 0 0.5rem;
   font-size: 1.1rem;
   font-weight: 500;
-  color: #e9e5dc;
-  transition: color 0.3s var(--ease);
+  color: var(--text-secondary);
+  transition: color var(--duration-fast) var(--ease);
 }
 
 .standard:hover .standardTitle {
@@ -597,7 +593,7 @@
   font-weight: 500;
   font-size: clamp(2.4rem, 4vw, 3.2rem);
   line-height: 1;
-  color: #e9e5dc;
+  color: var(--text-primary);
 }
 
 .teamLede {
@@ -621,9 +617,12 @@
   position: relative;
   background: var(--bg-card);
   border: 1px solid var(--border-soft);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: border-color 0.4s var(--ease), transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  transition:
+    border-color var(--duration-standard) var(--ease),
+    transform    var(--duration-standard) var(--ease),
+    box-shadow   var(--duration-standard) var(--ease);
 }
 
 .member:hover {
@@ -687,7 +686,7 @@
   font-family: var(--serif);
   font-size: 1.45rem;
   font-weight: 500;
-  color: #f1ede3;
+  color: var(--text-primary);
 }
 
 .memberRole {
@@ -753,11 +752,13 @@
   align-items: center;
   gap: 0.4rem;
   font-size: 0.84rem;
-  color: #f1ede3;
+  color: var(--text-primary);
   border-bottom: 1px solid var(--border-soft);
   padding-bottom: 2px;
   width: fit-content;
-  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+  transition:
+    color        var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease);
 }
 
 .memberLink:hover {
@@ -803,7 +804,7 @@
   font-weight: 500;
   font-size: clamp(2.2rem, 4.2vw, 3rem);
   line-height: 1.1;
-  color: #e9e5dc;
+  color: var(--text-primary);
 }
 
 .ctaCopy {

@@ -1,8 +1,7 @@
-import { useEffect, useRef } from "react";
-import anime from "animejs";
+import { useRef } from "react";
 
 import { services } from "../data/services.js";
-import { useInView } from "../hooks/useInView.js";
+import { useReveal } from "../hooks/useReveal.js";
 import { useParallax } from "../hooks/useParallax.js";
 import styles from "./Services.module.css";
 
@@ -12,37 +11,15 @@ import styles from "./Services.module.css";
  * and elegant typography consistent with the Empyreic homepage.
  */
 export default function Services({ reduced }) {
-  const [ref, inView] = useInView({ threshold: 0.12 });
+  const ref = useRef(null);
   const glowRef = useRef(null);
   const headRef = useRef(null);
   useParallax(glowRef, { from: -16, to: 16 }, reduced);
   useParallax(headRef, { from: -5, to: 5 }, reduced);
 
-  // Entrance stagger animations for headers and cards
-  useEffect(() => {
-    if (!inView || reduced) return;
-    const root = ref.current;
-
-    anime
-      .timeline({ easing: "easeOutExpo" })
-      .add({
-        targets: root.querySelectorAll("[data-head]"),
-        translateY: [30, 0],
-        opacity: [0, 1],
-        duration: 1100,
-        delay: anime.stagger(120),
-      })
-      .add(
-        {
-          targets: root.querySelectorAll("[data-row]"),
-          translateY: [40, 0],
-          opacity: [0, 1],
-          duration: 1000,
-          delay: anime.stagger(110),
-        },
-        "-=850"
-      );
-  }, [inView, reduced, ref]);
+  // Section header reveals first, cards staggered behind
+  useReveal(ref, reduced, "[data-head]", { delay: 0 });
+  useReveal(ref, reduced, "[data-row]", { delay: 120 });
 
   return (
     <section

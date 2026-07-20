@@ -4,38 +4,26 @@
   overflow: hidden;
   min-height: 100svh;
   padding-bottom: 6rem;
-  background:
-    linear-gradient(90deg, rgba(246, 241, 231, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(246, 241, 231, 0.03) 1px, transparent 1px),
-    linear-gradient(158deg, var(--indigo-900), var(--indigo-800) 58%, #0e1428);
-  background-size: 88px 88px, 88px 88px, auto;
+  background: var(--bg-deep);
 }
 
+/* Site-consistent radial glow */
 .page::before {
   content: "";
   position: absolute;
-  inset: -12rem -18rem auto auto;
+  inset: -8rem -12rem auto auto;
   z-index: -2;
-  width: 62rem;
-  height: 58rem;
+  width: 56rem;
+  height: 52rem;
   pointer-events: none;
-  background:
-    conic-gradient(from 230deg at 52% 46%, transparent, color-mix(in oklab, var(--accent), transparent 62%), transparent 38%),
-    linear-gradient(135deg, transparent 16%, rgba(247, 230, 194, 0.14), transparent 66%);
-  filter: blur(42px);
-  opacity: 0.72;
-}
-
-.page::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(115deg, transparent 0 24%, rgba(246, 241, 231, 0.055) 24.1% 24.3%, transparent 24.4%),
-    linear-gradient(145deg, transparent 0 71%, color-mix(in oklab, var(--accent), transparent 78%) 71.1% 71.4%, transparent 71.5%);
-  opacity: 0.88;
+  background: radial-gradient(
+    ellipse at 60% 40%,
+    rgba(236, 216, 179, 0.1),
+    rgba(90, 115, 160, 0.04) 50%,
+    transparent 75%
+  );
+  filter: blur(48px);
+  opacity: 0.75;
 }
 
 .page [data-hero],

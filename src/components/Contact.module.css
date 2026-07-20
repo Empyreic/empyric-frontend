@@ -4,13 +4,15 @@
   padding: clamp(6rem, 14vh, 11rem) var(--shell-x) clamp(5rem, 11vh, 9rem);
   overflow: hidden;
 }
+
+/* Ambient glow — consistent with site vocabulary */
 .glow {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background: radial-gradient(
     54% 50% at 22% 18%,
-    rgba(247, 230, 194, 0.16),
+    rgba(236, 216, 179, 0.14),
     transparent 60%
   );
   will-change: transform;
@@ -27,21 +29,22 @@
 .lead {
   min-width: 0;
 }
+
 .star {
   display: inline-flex;
   line-height: 0;
-  color: var(--champagne-bright);
-  filter: drop-shadow(0 0 14px rgba(247, 230, 194, 0.6));
-  margin-bottom: 1.2rem;
+  color: var(--champagne);
+  filter: drop-shadow(0 0 14px rgba(236, 216, 179, 0.55));
+  margin-bottom: var(--space-6);
   margin-left: -0.4rem;
   cursor: pointer;
-  /* Delay past the scroll-in reveal so the shimmer's opacity keyframes don't
-     override the GSAP fade-in. */
   animation: starShimmer 4.5s var(--ease) 1.4s infinite;
 }
+
 .eyebrow {
   margin-bottom: 1.3rem;
 }
+
 .title {
   margin: 0 0 1.6rem;
   font-family: var(--serif);
@@ -49,18 +52,22 @@
   font-size: clamp(2.6rem, 6vw, 4.6rem);
   line-height: 1.02;
   letter-spacing: -0.012em;
+  /* Accessible fallback before clip */
+  color: var(--text-primary);
   background: linear-gradient(168deg, var(--ivory) 40%, var(--champagne) 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
+
 .copy {
   margin: 0 0 2.2rem;
   max-width: 36rem;
   font-size: clamp(1rem, 1.4vw, 1.15rem);
   line-height: 1.66;
-  color: var(--ivory-dim);
+  color: var(--text-secondary);
 }
+
 .actions {
   display: flex;
   align-items: center;
@@ -69,6 +76,7 @@
   margin-bottom: 2.8rem;
 }
 
+/* Contact metadata grid */
 .meta {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -77,11 +85,13 @@
   padding-top: 2rem;
   border-top: 1px solid var(--border-soft);
 }
+
 .meta div {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
+
 .metaLabel {
   display: inline-flex;
   align-items: center;
@@ -91,21 +101,27 @@
   text-transform: uppercase;
   color: var(--text-muted);
 }
+
 .metaLabel svg {
   color: var(--champagne-soft);
   flex-shrink: 0;
 }
+
 .meta dd {
   margin: 0;
   font-size: 0.95rem;
-  color: var(--ivory);
+  color: var(--text-primary);
 }
+
 .meta dd a {
-  border-bottom: 1px solid var(--ivory-ghost);
-  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  border-bottom: 1px solid var(--border-soft);
+  transition:
+    border-color var(--duration-fast) var(--ease),
+    color        var(--duration-fast) var(--ease);
 }
+
 .meta dd a:hover {
-  color: var(--champagne-bright);
+  color: var(--champagne);
   border-color: var(--champagne);
 }
 
@@ -117,26 +133,30 @@
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  border: 1px solid var(--ivory-ghost);
-  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
   background: linear-gradient(
     180deg,
     rgba(246, 241, 231, 0.04),
     rgba(246, 241, 231, 0.01)
   );
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
+
 .step {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1rem;
   padding-bottom: 1.6rem;
-  border-bottom: 1px solid var(--ivory-ghost);
+  border-bottom: 1px solid var(--border-soft);
 }
+
 .step:last-child {
   padding-bottom: 0;
   border-bottom: 0;
 }
+
 .stepNum {
   font-family: var(--serif);
   font-size: 1.3rem;
@@ -144,26 +164,22 @@
   color: transparent;
   -webkit-text-stroke: 1px rgba(231, 207, 161, 0.55);
 }
+
 .stepTitle {
   margin: 0 0 0.35rem;
   font-size: 1.05rem;
   font-weight: 600;
-  color: var(--ivory);
+  color: var(--text-primary);
 }
+
 .stepBody {
   margin: 0;
   font-size: 0.92rem;
   line-height: 1.55;
-  color: var(--ivory-dim);
+  color: var(--text-secondary);
 }
 
-@media (max-width: 860px) {
-  .inner {
-    grid-template-columns: 1fr;
-    gap: 2.6rem;
-  }
-}
-
+/* ── Availability indicator — champagne gold (on-brand) ── */
 .emailRow {
   display: inline-flex;
   align-items: center;
@@ -180,12 +196,14 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
-  transition: color 0.3s var(--ease), background-color 0.3s var(--ease);
+  transition:
+    color       var(--duration-fast) var(--ease),
+    background  var(--duration-fast) var(--ease);
 }
 
 .copyBtn:hover {
   color: var(--text-primary);
-  background-color: rgba(245, 242, 235, 0.03);
+  background: rgba(245, 242, 235, 0.04);
 }
 
 .copiedText {
@@ -201,23 +219,24 @@
   gap: var(--space-2);
 }
 
+/* Pulse dot — champagne gold (replaces off-palette green) */
 .pulseDot {
   width: 8px;
   height: 8px;
-  background-color: #2ec866;
-  border-radius: 50%;
+  background-color: var(--champagne-soft);
+  border-radius: var(--radius-full);
   position: relative;
   display: inline-block;
-  box-shadow: 0 0 8px rgba(46, 200, 102, 0.6);
+  box-shadow: 0 0 8px rgba(211, 194, 157, 0.55);
 }
 
 .pulseDot::after {
   content: "";
   position: absolute;
   inset: -4px;
-  border-radius: 50%;
-  border: 1px solid #2ec866;
-  animation: pulseOuter 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--champagne-soft);
+  animation: pulseOuter 2.2s var(--ease) infinite;
 }
 
 @keyframes pulseOuter {
@@ -228,6 +247,13 @@
   100% {
     transform: scale(2.2);
     opacity: 0;
+  }
+}
+
+@media (max-width: 860px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 2.6rem;
   }
 }
 

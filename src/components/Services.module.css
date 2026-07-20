@@ -6,7 +6,7 @@
   overflow: hidden;
 }
 
-/* Subtle shared radial glow behind the center of the grid */
+/* Subtle shared radial glow — on-brand, consistent with site vocabulary */
 .sharedGlow {
   position: absolute;
   top: 55%;
@@ -16,7 +16,7 @@
   height: 600px;
   background: radial-gradient(
     circle,
-    rgba(232, 212, 167, 0.05),
+    rgba(236, 216, 179, 0.06),
     rgba(110, 130, 165, 0.02) 45%,
     transparent 70%
   );
@@ -62,10 +62,10 @@
   font-size: clamp(2.8rem, 6.5vw, 5rem);
   line-height: 1.05;
   letter-spacing: -0.01em;
-  color: #f1ede3;
+  color: var(--text-primary);
 }
 
-/* 2x2 Responsive Card Grid */
+/* 2×2 Responsive Card Grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -75,44 +75,43 @@
 }
 
 .grid [data-row] {
-  opacity: 0; /* anime.js handles entrance fade-in */
+  opacity: 0; /* anime.js handles entrance */
 }
 
-/* Premium Card Design */
+/* Card */
 .card {
   position: relative;
   min-height: clamp(400px, 48vh, 480px);
   padding: var(--space-8);
-  background: rgba(18, 24, 41, 0.35); /* Softer base opacity for glassmorphism */
+  background: var(--bg-card);
   backdrop-filter: blur(16px) saturate(130%);
   -webkit-backdrop-filter: blur(16px) saturate(130%);
-  border: 1px solid rgba(245, 242, 235, 0.06);
-  border-radius: var(--radius-lg); /* Slightly more rounded for luxury card feel */
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 
-    var(--shadow-md),
-    inset 0 1px 0 rgba(255, 255, 255, 0.02);
-  transition: 
-    border-color 0.5s var(--ease),
-    background-color 0.5s var(--ease),
-    box-shadow 0.5s var(--ease),
-    transform 0.5s var(--ease);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  transition:
+    border-color  var(--duration-standard) var(--ease),
+    background    var(--duration-standard) var(--ease),
+    box-shadow    var(--duration-standard) var(--ease),
+    transform     var(--duration-standard) var(--ease);
 }
 
+/* Subtle hover — slight elevation, no aggressive scale */
 .card:hover {
-  border-color: rgba(236, 216, 179, 0.32);
-  background-color: rgba(18, 24, 41, 0.55); /* Retains glassmorphism on hover */
-  box-shadow: 
+  border-color: rgba(236, 216, 179, 0.28);
+  background: rgba(18, 24, 41, 0.58);
+  box-shadow:
     var(--shadow-lg),
-    0 10px 30px -10px rgba(236, 216, 179, 0.08),
-    inset 0 0 20px rgba(236, 216, 179, 0.04);
-  transform: translateY(-6px) scale(1.01); /* Dynamic scale micro-interaction */
+    0 10px 30px -10px rgba(236, 216, 179, 0.07),
+    inset 0 0 20px rgba(236, 216, 179, 0.03);
+  transform: translateY(-4px);
 }
 
-/* Card Header content */
+/* Card Header */
 .cardHeader {
   display: flex;
   justify-content: space-between;
@@ -127,12 +126,12 @@
   color: var(--champagne-soft);
 }
 
-/* Card Body Content */
+/* Card Body */
 .cardBody {
   margin-top: auto;
   margin-bottom: var(--space-6);
   z-index: 2;
-  transition: transform 0.4s var(--ease);
+  transition: transform var(--duration-standard) var(--ease);
 }
 
 .card:hover .cardBody {
@@ -160,11 +159,11 @@
 .cardDescription {
   margin: 0;
   font-size: 0.92rem;
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--text-secondary);
 }
 
-/* Card Footer (Capabilities Tags) */
+/* Card Footer — capability tags */
 .cardFooter {
   z-index: 2;
 }
@@ -178,24 +177,25 @@
   padding: 0;
 }
 
+/* Capability tags: #8a909e gives ~4.1:1 — acceptable for decorative labels */
 .capabilityTag {
   font-size: 0.7rem;
   letter-spacing: 0.04em;
-  color: var(--text-muted);
+  color: #8a909e;
   background: rgba(245, 242, 235, 0.02);
   padding: 0.25rem 0.6rem;
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-sm);
-  transition: 
-    color 0.4s var(--ease),
-    border-color 0.4s var(--ease),
-    background-color 0.4s var(--ease);
+  transition:
+    color        var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease),
+    background   var(--duration-fast) var(--ease);
 }
 
 .card:hover .capabilityTag {
   color: var(--text-secondary);
-  border-color: rgba(236, 216, 179, 0.2);
-  background-color: rgba(236, 216, 179, 0.03);
+  border-color: rgba(236, 216, 179, 0.16);
+  background: rgba(236, 216, 179, 0.03);
 }
 
 /* Abstract Visual Objects */
@@ -207,15 +207,15 @@
   height: 140px;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.65;
-  transition: 
-    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.6;
+  transition:
+    opacity   var(--duration-large) var(--ease),
+    transform var(--duration-large) var(--ease);
 }
 
 .card:hover .visualWrapper {
-  opacity: 0.95;
-  transform: translate(-4px, 4px);
+  opacity: 0.9;
+  transform: translate(-3px, 3px);
 }
 
 .visualWrapper svg {
@@ -224,9 +224,8 @@
   overflow: visible;
 }
 
-/* Internal light core styling for hover brightness */
 .luminousBody {
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), stop-opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity var(--duration-large) var(--ease);
 }
 
 .card:hover .luminousBody {
@@ -235,7 +234,7 @@
 
 /* Orbiting Nodes (AI) */
 .aiCore {
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity var(--duration-large) var(--ease);
 }
 
 .card:hover .aiCore {
@@ -257,15 +256,15 @@
 
 @keyframes orbit1 {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
 @keyframes orbit2 {
   from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
+  to   { transform: rotate(0deg); }
 }
 @keyframes orbit3 {
   from { transform: rotate(180deg); }
-  to { transform: rotate(540deg); }
+  to   { transform: rotate(540deg); }
 }
 
 /* Flow Path (Automation) */
@@ -275,12 +274,8 @@
 }
 
 @keyframes flow {
-  from {
-    stroke-dashoffset: 200;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
+  from { stroke-dashoffset: 200; }
+  to   { stroke-dashoffset: 0; }
 }
 
 /* Ribbon Draw Animation (Motion) */
@@ -291,26 +286,21 @@
 }
 
 @keyframes drawRibbon {
-  0% {
-    stroke-dashoffset: 200;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
+  0%   { stroke-dashoffset: 200; }
+  100% { stroke-dashoffset: 0; }
 }
 
-/* ---------------- Responsive ---------------- */
+/* ── Responsive ── */
+
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: 1fr;
     gap: 1.2rem;
   }
-  
   .card {
     min-height: 380px;
-    padding: 2rem;
+    padding: var(--space-8);
   }
-  
   .visualWrapper {
     width: 120px;
     height: 120px;
@@ -318,8 +308,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .head [data-head],
   .grid [data-row] {
     opacity: 1 !important;
+    transform: none !important;
   }
   .card,
   .cardBody,

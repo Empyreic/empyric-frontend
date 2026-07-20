@@ -5,17 +5,17 @@
   overflow: hidden;
 }
 
+/* Subtle champagne fine grid — on-brand, replaces off-palette cyan/lime */
 .proof::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(246, 241, 231, 0.04) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(246, 241, 231, 0.03) 1px, transparent 1px),
-    linear-gradient(120deg, rgba(94, 200, 255, 0.08), transparent 32%, rgba(198, 242, 78, 0.06) 70%, transparent);
-  background-size: 84px 84px, 84px 84px, auto;
-  opacity: 0.8;
+    linear-gradient(90deg, rgba(236, 216, 179, 0.025) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(236, 216, 179, 0.02) 1px, transparent 1px);
+  background-size: 84px 84px;
+  opacity: 0.7;
 }
 
 .inner {
@@ -23,7 +23,7 @@
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 4rem;
-  max-width: 1280px;
+  max-width: var(--content-w);
   margin: 0 auto;
 }
 
@@ -45,11 +45,11 @@
 .title {
   margin: 0 0 1.35rem;
   font-family: var(--serif);
-  font-size: 4.1rem;
+  font-size: clamp(2.8rem, 5vw, 4.1rem);
   line-height: 1;
   font-weight: 500;
-  letter-spacing: 0;
-  color: var(--ivory);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
 }
 
 .lede {
@@ -57,7 +57,7 @@
   margin: 0;
   font-size: 1.08rem;
   line-height: 1.68;
-  color: var(--ivory-dim);
+  color: var(--text-secondary);
 }
 
 .stats {
@@ -73,11 +73,12 @@
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-md);
   background: var(--bg-card);
-  transition: 
-    transform 0.4s var(--ease),
-    border-color 0.4s var(--ease), 
-    box-shadow 0.4s var(--ease);
+  transition:
+    transform     var(--duration-standard) var(--ease),
+    border-color  var(--duration-standard) var(--ease),
+    box-shadow    var(--duration-standard) var(--ease);
 }
+
 .stat:hover {
   transform: translateY(-3px);
   border-color: var(--border-gold);
@@ -173,7 +174,12 @@
   padding: var(--space-6);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgba(236, 216, 179, 0.05) 0%, transparent 60%), var(--bg-card);
+  background: linear-gradient(
+    135deg,
+    rgba(236, 216, 179, 0.05) 0%,
+    transparent 60%
+  ),
+  var(--bg-card);
   box-shadow: var(--shadow-sm);
 }
 
@@ -213,13 +219,11 @@
   .grid {
     grid-template-columns: 1fr;
   }
-
   .head,
   .stats,
   .grid {
     grid-column: auto;
   }
-
   .head {
     position: relative;
     top: auto;
@@ -231,11 +235,9 @@
     padding-top: 5rem;
     padding-bottom: 5.5rem;
   }
-
   .title {
     font-size: 2.8rem;
   }
-
   .stats {
     grid-template-columns: 1fr;
   }
@@ -245,5 +247,8 @@
   .head [data-proof-head],
   [data-proof-item] {
     opacity: 1;
+  }
+  .stat {
+    transition: none;
   }
 }

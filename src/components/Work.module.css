@@ -26,7 +26,7 @@
   font-size: clamp(2.4rem, 5.4vw, 4.2rem);
   line-height: 1.04;
   letter-spacing: -0.012em;
-  color: #f1ede3;
+  color: var(--text-primary);
 }
 
 .lede {
@@ -37,7 +37,7 @@
   color: var(--text-secondary);
 }
 
-/* --- Carousel Container Layout --- */
+/* ── Carousel Container ── */
 
 .carouselContainer {
   display: flex;
@@ -47,14 +47,13 @@
   position: relative;
 }
 
-/* Pinned Carousel Stage */
 .stage {
   flex: 1;
   overflow: hidden;
   position: relative;
   padding: 3rem 0;
   outline: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
 }
 
 .stage:focus-visible {
@@ -65,18 +64,18 @@
 /* Sliding Track */
 .track {
   display: flex;
-  transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform var(--duration-large) cubic-bezier(0.22, 0.61, 0.36, 1);
   will-change: transform;
 }
 
-/* Premium Card Design */
+/* Card */
 .card {
   flex: 0 0 clamp(380px, 48vw, 620px);
   height: clamp(500px, 64vh, 660px);
   margin: 0 18px;
-  border-radius: var(--radius-lg); /* Larger rounded corners for luxury layout */
+  border-radius: var(--radius-lg);
   border: 1px solid rgba(245, 242, 235, 0.05);
-  background: rgba(18, 24, 41, 0.35); /* Glassmorphic base */
+  background: var(--bg-card);
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
   position: relative;
@@ -84,11 +83,11 @@
   cursor: pointer;
   opacity: 0.45;
   transform: scale(0.88);
-  transition: 
-    transform 0.6s var(--ease), 
-    opacity 0.6s var(--ease), 
-    border-color 0.4s var(--ease),
-    box-shadow 0.4s var(--ease);
+  transition:
+    transform     var(--duration-large) var(--ease),
+    opacity       var(--duration-large) var(--ease),
+    border-color  var(--duration-standard) var(--ease),
+    box-shadow    var(--duration-standard) var(--ease);
   box-shadow: var(--shadow-sm);
   outline: none;
   user-select: none;
@@ -97,9 +96,7 @@
 .cardActive {
   opacity: 1;
   transform: scale(1);
-  box-shadow: 
-    var(--shadow-md),
-    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
 .card:focus-visible {
@@ -109,22 +106,22 @@
 
 /* Inactive card hover */
 .card:not(.cardActive):hover {
-  opacity: 0.7;
+  opacity: 0.68;
   transform: scale(0.91);
-  border-color: rgba(236, 216, 179, 0.15);
+  border-color: rgba(236, 216, 179, 0.12);
 }
 
-/* Active card hover scale and glow */
+/* Active card hover — subtle, no aggressive scale */
 .cardActive:hover {
-  transform: scale(1.03); /* Larger kinetic scale */
-  border-color: rgba(236, 216, 179, 0.35);
-  box-shadow: 
-    0 0 35px rgba(236, 216, 179, 0.12), /* Rich warm gold radial glow */
+  transform: scale(1.015);
+  border-color: rgba(236, 216, 179, 0.3);
+  box-shadow:
+    0 0 20px rgba(236, 216, 179, 0.1),
     var(--shadow-lg),
-    inset 0 0 20px rgba(236, 216, 179, 0.04);
+    inset 0 0 16px rgba(236, 216, 179, 0.03);
 }
 
-/* Image Background Wrapper */
+/* Image Background */
 .imageWrapper {
   position: absolute;
   inset: 0;
@@ -137,12 +134,14 @@
   height: 100%;
   object-fit: cover;
   opacity: 0.35;
-  transition: transform 0.65s var(--ease), opacity 0.65s var(--ease);
+  transition:
+    transform var(--duration-large) var(--ease),
+    opacity   var(--duration-large) var(--ease);
 }
 
 .cardActive:hover .image {
-  transform: scale(1.06);
-  opacity: 0.5;
+  transform: scale(1.04);
+  opacity: 0.48;
 }
 
 .placeholder {
@@ -155,14 +154,14 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    180deg, 
-    rgba(6, 9, 19, 0.1) 0%, 
+    180deg,
+    rgba(6, 9, 19, 0.1) 0%,
     rgba(6, 9, 19, 0.85) 85%
   );
   z-index: 2;
 }
 
-/* Card Header Metadata */
+/* Card Meta Header */
 .cardMeta {
   position: absolute;
   top: 1.5rem;
@@ -194,12 +193,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(10, 14, 26, 0.68); /* Translucent backdrop overlay */
+  background: rgba(10, 14, 26, 0.72);
   backdrop-filter: blur(16px) saturate(130%);
   -webkit-backdrop-filter: blur(16px) saturate(130%);
-  border-top: 1px solid rgba(245, 242, 235, 0.08);
+  border-top: 1px solid var(--border-soft);
   transform: translateY(66%);
-  transition: transform 0.5s var(--ease); /* Smoother slide ease */
+  transition: transform var(--duration-large) var(--ease);
   padding: 1.5rem;
   box-sizing: border-box;
   z-index: 4;
@@ -216,7 +215,7 @@
   font-size: 1.45rem;
   line-height: 1.24;
   letter-spacing: -0.01em;
-  color: #f1ede3;
+  color: var(--text-primary);
 }
 
 .caseSummary {
@@ -244,7 +243,7 @@
   font-size: 1.8rem;
   line-height: 1;
   font-weight: 500;
-  color: #f1ede3;
+  color: var(--text-primary);
 }
 
 .metricLabel {
@@ -253,7 +252,7 @@
   color: var(--text-muted);
 }
 
-/* Panel Footer Stack & View study link */
+/* Panel Footer */
 .panelFooter {
   display: flex;
   justify-content: space-between;
@@ -275,7 +274,7 @@
   color: var(--text-muted);
   padding: 0.2rem 0.5rem;
   border: 1px solid rgba(241, 237, 227, 0.06);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
 }
 
 .viewLink {
@@ -286,13 +285,13 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #f1ede3;
+  color: var(--text-primary);
   border-bottom: 1px solid rgba(241, 237, 227, 0.1);
   padding-bottom: 2px;
-  transition: 
-    color 0.3s var(--ease), 
-    border-color 0.3s var(--ease), 
-    gap 0.3s var(--ease);
+  transition:
+    color        var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease),
+    gap          var(--duration-fast) var(--ease);
 }
 
 .card:hover .viewLink {
@@ -301,30 +300,29 @@
   gap: 0.6rem;
 }
 
-/* --- Round Navigation Buttons --- */
+/* ── Navigation Buttons ── */
 
 .navBtn {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  border: 1px solid rgba(241, 237, 227, 0.08);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-soft);
   background: rgba(255, 255, 255, 0.02);
-  color: #f1ede3;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
-  transition: 
-    background 0.3s var(--ease), 
-    border-color 0.3s var(--ease), 
-    color 0.3s var(--ease), 
-    transform 0.3s var(--ease);
+  transition:
+    background    var(--duration-fast) var(--ease),
+    border-color  var(--duration-fast) var(--ease),
+    transform     var(--duration-fast) var(--ease);
 }
 
 .navBtn:hover:not([disabled]) {
-  background: rgba(241, 237, 227, 0.08);
-  border-color: rgba(232, 212, 167, 0.2);
+  background: rgba(241, 237, 227, 0.06);
+  border-color: rgba(236, 216, 179, 0.18);
   transform: scale(1.05);
 }
 
@@ -337,7 +335,7 @@
   cursor: not-allowed;
 }
 
-/* --- Carousel Dots Indicator --- */
+/* ── Dots Indicator ── */
 
 .dots {
   display: flex;
@@ -352,13 +350,13 @@
   height: 6px;
   border: none;
   padding: 0;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: rgba(241, 237, 227, 0.2);
   cursor: pointer;
-  transition: 
-    width 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), 
-    border-radius 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), 
-    background-color 0.4s var(--ease);
+  transition:
+    width        var(--duration-standard) cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-radius var(--duration-standard) cubic-bezier(0.22, 0.61, 0.36, 1),
+    background    var(--duration-fast) var(--ease);
 }
 
 .dot:hover {
@@ -371,7 +369,7 @@
   border-radius: 3px;
 }
 
-/* --- Responsive Adjustments --- */
+/* ── Responsive ── */
 
 @media (max-width: 760px) {
   .card {
@@ -379,7 +377,6 @@
     height: 500px;
     margin: 0 12px;
   }
-  
   .panel {
     transform: translateY(58%);
   }
@@ -387,22 +384,19 @@
 
 @media (max-width: 640px) {
   .navBtn {
-    display: none; /* Hide buttons on mobile in favor of gestures/dots */
+    display: none;
   }
-
   .stage {
     padding: 1rem 0;
   }
-
   .card {
     flex: 0 0 86vw;
     height: 470px;
     margin: 0 8px;
   }
-
   .panel {
-    transform: translateY(0); /* Fully expanded on mobile for clear readability */
-    background: rgba(11, 15, 27, 0.95);
+    transform: translateY(0);
+    background: rgba(11, 15, 27, 0.96);
   }
 }
 
@@ -414,7 +408,6 @@
   .dot {
     transition: none !important;
   }
-  
   .track {
     transition: none !important;
   }
