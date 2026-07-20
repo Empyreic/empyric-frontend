@@ -19,6 +19,17 @@
   --bg-soft: #121829;
   --bg-card: rgba(18, 24, 41, 0.45);
 
+  /* Heaven sky gradient — updated dynamically by CinematicClouds.jsx on scroll */
+  --sky-gradient: linear-gradient(
+    180deg,
+    #050814 0%,
+    #0a142c 25%,
+    #1d1532 50%,
+    #4a2235 75%,
+    #1b1022 90%,
+    #05070e 100%
+  );
+
   --text-primary: #f5f2eb;
   --text-secondary: #b3b2ad;
   --text-muted: #7d8291;

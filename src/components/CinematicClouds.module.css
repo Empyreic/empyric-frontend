@@ -1,24 +1,23 @@
 /* ============================================================
-   Cinematic Clouds Stylesheet — Single-Div repeat-x Background system.
+   Cinematic Heaven Clouds — site-wide immersive scroll experience.
    ============================================================ */
 
 .cloudStage {
   display: contents;
 }
 
-/* Cloud wrapper handling scroll fade-out (slowly hide) */
+/* ── Cloud wrapper: ambient opacity across entire page ─────────────── */
 .cloudsWrapper {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
   opacity: var(--cloud-opacity, 1);
-  visibility: var(--cloud-visibility, visible);
-  will-change: opacity, visibility;
-  transition: opacity 0.08s ease-out;
+  will-change: opacity;
+  transition: opacity 0.15s linear;
 }
 
-/* Common layer container defaults — extended wide horizontally so repeat-x seamlessly covers scroll shifts */
+/* ── Common layer width: extended for repeat-x + parallax travel ───── */
 .layerBackground,
 .layerMiddle,
 .layerForeground {
@@ -28,123 +27,93 @@
   pointer-events: none;
 }
 
-/* Layer 5: Background Atmospheric Sunrise Haze */
+/* ============================================================
+   Layer 5: Heaven sky — background written directly by JS
+   (CSS custom-property gradient transitions are unsupported)
+   ============================================================ */
 .layerHaze {
   position: fixed;
   inset: 0;
   z-index: -2;
-  background: linear-gradient(
-    180deg,
-    #050814 0%,
-    #0a142c 25%,
-    #1d1532 50%,
-    #4a2235 75%,
-    #1b1022 90%,
-    #05070e 100%
-  );
+  /* Initial deep-twilight state — overwritten immediately by scroll handler */
+  background: linear-gradient(180deg, #050814 0%, #0a142c 45%, #1d1532 100%);
   pointer-events: none;
+  /* Smooth sky colour transitions as JS updates background every rAF */
+  transition: background 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Radial vignette layer — always-on cinematic depth */
+.layerHazeVignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 110% 90% at 50% 30%,
+    transparent 35%,
+    rgba(4, 6, 12, 0.55) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Subtle ethereal shimmer that builds with scroll ratio */
 .layerHazeDaylight {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     180deg,
-    #03050c 0%,
-    #071026 25%,
-    #181a3d 50%,
-    #3f2b45 75%,
-    #6d4b53 90%,
-    #2c1a2d 100%
+    rgba(255, 255, 255, 0.015) 0%,
+    rgba(200, 220, 255, 0.035) 40%,
+    rgba(255, 235, 185, 0.045) 80%,
+    transparent 100%
   );
   opacity: var(--scroll-ratio, 0);
-  transition: opacity 0.4s var(--ease);
   pointer-events: none;
-  z-index: -1;
+  z-index: 2;
 }
 
-/* Atmospheric vignette to darken corners for cinematic scale */
-.layerHaze::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, transparent 40%, rgba(5, 7, 14, 0.65) 100%);
-  pointer-events: none;
-}
-
-/* Floating sunrise sun glow */
+/* ============================================================
+   Heaven sun glow — radial bloom, slow breathing
+   ============================================================ */
 .sunGlow {
   position: absolute;
-  top: 5%;
-  right: -10%;
-  width: 85vmax;
-  height: 85vmax;
+  top: 0%;
+  right: -12%;
+  width: 90vmax;
+  height: 90vmax;
   border-radius: 50%;
   background: radial-gradient(
     circle at center,
-    rgba(255, 222, 162, 0.38) 0%,
-    rgba(235, 142, 112, 0.22) 30%,
-    rgba(145, 82, 155, 0.08) 60%,
-    transparent 80%
+    rgba(255, 228, 168, 0.42) 0%,
+    rgba(238, 148, 118, 0.24) 28%,
+    rgba(148, 88, 162, 0.10) 55%,
+    transparent 78%
   );
-  filter: blur(75px);
-  animation: sunGlowPulse 28s ease-in-out infinite alternate;
+  filter: blur(80px);
+  animation: sunGlowPulse 32s ease-in-out infinite alternate;
+  z-index: 0;
+  will-change: transform, opacity;
 }
 
 @keyframes sunGlowPulse {
-  0% {
-    transform: scale(1) translate3d(0, 0, 0);
-    opacity: 0.75;
-  }
-  100% {
-    transform: scale(1.15) translate3d(-40px, 30px, 0);
-    opacity: 0.95;
-  }
+  0%   { transform: scale(1)    translate3d(0,    0,   0); opacity: 0.78; }
+  50%  { transform: scale(1.08) translate3d(-20px, 15px, 0); opacity: 0.92; }
+  100% { transform: scale(1.18) translate3d(-44px, 32px, 0); opacity: 0.96; }
 }
 
 /* ============================================================
-   Independent Breathing / Floating Sways
+   Independent floating sways (CSS-only, coprime periods)
    ============================================================ */
-.floatBg {
-  width: 100%;
-  height: 100%;
-  animation: floatBgKey 20s ease-in-out infinite alternate;
-}
+.floatBg  { width: 100%; height: 100%; animation: floatBgKey  22s ease-in-out infinite alternate; }
+.floatMid { width: 100%; height: 100%; animation: floatMidKey 17s ease-in-out infinite alternate; }
+.floatFg  { width: 100%; height: 100%; animation: floatFgKey  13s ease-in-out infinite alternate; }
 
-.floatMid {
-  width: 100%;
-  height: 100%;
-  animation: floatMidKey 16s ease-in-out infinite alternate;
-}
-
-.floatFg {
-  width: 100%;
-  height: 100%;
-  animation: floatFgKey 12s ease-in-out infinite alternate;
-}
-
-@keyframes floatBgKey {
-  0% { transform: translate3d(0, -8px, 0); }
-  100% { transform: translate3d(0, 8px, 0); }
-}
-
-@keyframes floatMidKey {
-  0% { transform: translate3d(0, -14px, 0); }
-  100% { transform: translate3d(0, 14px, 0); }
-}
-
-@keyframes floatFgKey {
-  0% { transform: translate3d(0, -20px, 0); }
-  100% { transform: translate3d(0, 20px, 0); }
-}
+@keyframes floatBgKey  { 0% { transform: translate3d(0,  -9px, 0); } 100% { transform: translate3d(0,  9px, 0); } }
+@keyframes floatMidKey { 0% { transform: translate3d(0, -15px, 0); } 100% { transform: translate3d(0, 15px, 0); } }
+@keyframes floatFgKey  { 0% { transform: translate3d(0, -22px, 0); } 100% { transform: translate3d(0, 22px, 0); } }
 
 /* ============================================================
-   Cloud Texture Setup (repeat-x only)
+   Cloud textures — repeat-x drift
    ============================================================ */
-
-.cloudA,
-.cloudB,
-.cloudC {
+.cloudA, .cloudB, .cloudC {
   position: absolute;
   inset: 0;
   background-repeat: repeat-x;
@@ -155,104 +124,161 @@
 .cloudC {
   background-image: url("/cloudc.webp");
   background-size: 2800px auto;
-  animation: driftLeftBg 320s linear infinite;
+  animation: driftLeftBg 340s linear infinite;
 }
-
 .cloudB {
   background-image: url("/cloudb.webp");
   background-size: 2000px auto;
-  animation: driftRightMid 220s linear infinite;
+  animation: driftRightMid 230s linear infinite;
 }
-
 .cloudA {
   background-image: url("/clouda.webp");
   background-size: 2400px auto;
-  animation: driftLeftFg 140s linear infinite;
+  animation: driftLeftFg 150s linear infinite;
 }
 
-/* Horizontal Background Position Drift animations */
-@keyframes driftLeftBg {
-  from { background-position-x: 0px; }
-  to { background-position-x: -2800px; }
-}
-
-@keyframes driftRightMid {
-  from { background-position-x: -2000px; }
-  to { background-position-x: 0px; }
-}
-
-@keyframes driftLeftFg {
-  from { background-position-x: 0px; }
-  to { background-position-x: -2400px; }
-}
+@keyframes driftLeftBg   { from { background-position-x:    0px; } to { background-position-x: -2800px; } }
+@keyframes driftRightMid { from { background-position-x: -2000px; } to { background-position-x:     0px; } }
+@keyframes driftLeftFg   { from { background-position-x:    0px; } to { background-position-x: -2400px; } }
 
 /* ============================================================
-   Layer Specific Layout & Masks
+   Layer containers — position, mask, transform
    ============================================================ */
 
-/* Layer 3: Background Clouds (Large, low opacity, large blur, barely moves) */
+/* Background: blurred, nearly static horizontally */
 .layerBackground {
   top: 0;
   height: 100vh;
   z-index: -1;
-  filter: blur(5px) brightness(1.22);
-  animation: opacityBackground 48s ease-in-out infinite alternate;
-  transform: translate3d(var(--scroll-x-bg, 0px), 0, 0);
+  filter: blur(7px) brightness(1.15) saturate(1.1);
+  animation: opacityBg 50s ease-in-out infinite alternate;
+  transform: translate3d(var(--scroll-x-bg, 0px), var(--scroll-y-bg, 0px), 0);
   will-change: transform;
-
-  /* Static mask feathers the top and bottom transition lines relative to screen */
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
 }
 
-/* Layer 2: Middle Clouds (Medium opacity, slight blur, moves slower) */
+/* Middle: slight blur, medium opacity */
 .layerMiddle {
   top: 0;
   height: 100vh;
-  z-index: 1; /* Sits in front of background layer, behind z-index: 2 sections */
-  filter: blur(1.5px) brightness(1.2) drop-shadow(0 15px 12px rgba(10, 8, 20, 0.45));
-  animation: opacityMiddle 36s ease-in-out infinite alternate;
-  transform: translate3d(var(--scroll-x-mid, 0px), 0, 0);
+  z-index: 1;
+  filter: blur(2px) brightness(1.18) drop-shadow(0 18px 14px rgba(8, 6, 18, 0.38));
+  animation: opacityMid 38s ease-in-out infinite alternate;
+  transform: translate3d(var(--scroll-x-mid, 0px), var(--scroll-y-mid, 0px), 0);
   will-change: transform;
-
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
 }
 
-/* Layer 1: Foreground Clouds (Large scale, highest opacity, moves fastest, passes in front of content) */
+/* Foreground: sharpest, highest opacity, overlaps stage content */
 .layerForeground {
   top: -1200px;
   height: calc(100vh + 1200px);
-  z-index: 20; /* Passes in front of z-index: 2 content, behind z-index: 30 navigation */
-  filter: brightness(1.15) drop-shadow(0 25px 20px rgba(5, 7, 15, 0.5));
-  animation: opacityForeground 24s ease-in-out infinite alternate;
+  z-index: 20;
+  filter: brightness(1.10) drop-shadow(0 28px 22px rgba(4, 6, 14, 0.42));
+  animation: opacityFg 26s ease-in-out infinite alternate;
   transform: translate3d(var(--scroll-x-fg, 0px), var(--scroll-y-fg, 0px), 0);
   will-change: transform;
-
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
 }
 
+/* Coprime opacity breathe — creates natural variation */
+@keyframes opacityBg  { 0% { opacity: 0.18; } 100% { opacity: 0.42; } }
+@keyframes opacityMid { 0% { opacity: 0.22; } 100% { opacity: 0.52; } }
+@keyframes opacityFg  { 0% { opacity: 0.26; } 100% { opacity: 0.68; } }
+
 /* ============================================================
-   Coprime Opacity Sways
+   HeavenCloudBand — section separator cloud passages
    ============================================================ */
-@keyframes opacityBackground {
-  0% { opacity: 0.22; }
-  100% { opacity: 0.48; }
+
+/* Vertical space the band occupies in document flow */
+.heavenBandWrapper {
+  position: relative;
+  /* 
+   * height: 0 so the band doesn't create whitespace gaps between sections.
+   * The actual cloud element overflows with overflow: visible.
+   */
+  height: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 2;
 }
 
-@keyframes opacityMiddle {
-  0% { opacity: 0.28; }
-  100% { opacity: 0.58; }
+/* The cloud ribbon — bleeds out from the zero-height wrapper */
+.heavenBand {
+  position: absolute;
+  left: -80px;
+  right: -80px;
+  top: -130px;
+  bottom: -130px;
+  background-repeat: repeat-x;
+  background-size: 2400px auto;
+  background-position: center center;
+  opacity: 0; /* GSAP drives this */
+  will-change: opacity, transform, background-position-y;
+  /* Feather top and bottom so the band dissolves into each section */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.9) 28%,
+    rgba(0,0,0,0.9) 72%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.9) 28%,
+    rgba(0,0,0,0.9) 72%,
+    transparent 100%
+  );
 }
 
-@keyframes opacityForeground {
-  0% { opacity: 0.35; }
-  100% { opacity: 0.88; }
+/* Three cloud textures, cycling across sections */
+.heavenBand--a {
+  background-image: url("/clouda.webp");
+  filter: blur(1.5px) brightness(1.3) saturate(1.1);
+  animation: bandDriftA 95s linear infinite;
+}
+.heavenBand--b {
+  background-image: url("/cloudb.webp");
+  filter: blur(2px) brightness(1.25) saturate(0.95);
+  animation: bandDriftB 125s linear infinite;
+}
+.heavenBand--c {
+  background-image: url("/cloudc.webp");
+  background-size: 2800px auto;
+  filter: blur(4px) brightness(1.15) saturate(0.9);
+  animation: bandDriftC 160s linear infinite;
+}
+
+@keyframes bandDriftA { from { background-position-x:    0px; } to { background-position-x: -2400px; } }
+@keyframes bandDriftB { from { background-position-x: -2000px; } to { background-position-x:     0px; } }
+@keyframes bandDriftC { from { background-position-x:    0px; } to { background-position-x: -2800px; } }
+
+/* Volumetric divine light that glows behind the cloud band */
+.heavenGlow {
+  position: absolute;
+  left: -200px;
+  right: -200px;
+  top: -80px;
+  bottom: -80px;
+  background: radial-gradient(
+    ellipse 75% 55% at 50% 50%,
+    rgba(160, 192, 255, 0.06) 0%,
+    rgba(220, 205, 165, 0.04) 45%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  opacity: 0; /* GSAP drives */
+  pointer-events: none;
+  will-change: opacity;
+  z-index: -1;
 }
 
 /* ============================================================
-   Reduced Motion Overrides
+   Reduced motion — freeze all animation, keep subtle static presence
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   .layerBackground,
@@ -264,11 +290,15 @@
   .sunGlow,
   .cloudA,
   .cloudB,
-  .cloudC {
+  .cloudC,
+  .heavenBand--a,
+  .heavenBand--b,
+  .heavenBand--c {
     animation: none !important;
     transform: none !important;
   }
-  .layerBackground { opacity: 0.22; }
-  .layerMiddle { opacity: 0.28; }
-  .layerForeground { opacity: 0.45; }
+  .layerBackground { opacity: 0.18; }
+  .layerMiddle     { opacity: 0.22; }
+  .layerForeground { opacity: 0.30; }
+  .heavenBand      { opacity: 0.30 !important; }
 }

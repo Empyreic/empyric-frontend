@@ -3,12 +3,12 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import Stage from "../components/Stage.jsx";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion.js";
 
-const Services = lazy(() => import("../components/Services.jsx"));
-const Proof = lazy(() => import("../components/Proof.jsx"));
-const Work = lazy(() => import("../components/Work.jsx"));
-const Testimonials = lazy(() => import("../components/Testimonials.jsx"));
-const Contact = lazy(() => import("../components/Contact.jsx"));
-const SectionFog = lazy(() => import("../components/SectionFog.jsx"));
+const Services      = lazy(() => import("../components/Services.jsx"));
+const Proof         = lazy(() => import("../components/Proof.jsx"));
+const Work          = lazy(() => import("../components/Work.jsx"));
+const Testimonials  = lazy(() => import("../components/Testimonials.jsx"));
+const Contact       = lazy(() => import("../components/Contact.jsx"));
+const HeavenCloudBand = lazy(() => import("../components/HeavenCloudBand.jsx"));
 
 const hasPrerenderedMarkup = () =>
   typeof document === "undefined" ||
@@ -35,13 +35,13 @@ export default function Home() {
       {showRest && (
         <Suspense fallback={null}>
           <Services reduced={reduced} />
-          <SectionFog />
+          <HeavenCloudBand />
           <Proof reduced={reduced} />
-          <SectionFog />
+          <HeavenCloudBand />
           <Work reduced={reduced} />
-          <SectionFog />
+          <HeavenCloudBand />
           <Testimonials reduced={reduced} />
-          <SectionFog />
+          <HeavenCloudBand />
           <Contact reduced={reduced} />
         </Suspense>
       )}
