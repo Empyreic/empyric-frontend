@@ -173,15 +173,17 @@ a {
 .btn--outline {
   border: 1px solid var(--border-soft);
   color: var(--text-primary);
-  background: rgba(245, 242, 235, 0.01);
+  background: rgba(245, 242, 235, 0.02);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow: var(--shadow-sm);
 }
 
 .btn--outline:hover,
 .btn--outline:focus-visible {
-  border-color: rgba(236, 216, 179, 0.45);
-  background: rgba(236, 216, 179, 0.05);
-  box-shadow: 0 4px 20px -4px rgba(236, 216, 179, 0.08);
+  border-color: rgba(236, 216, 179, 0.35);
+  background: rgba(236, 216, 179, 0.08);
+  box-shadow: 0 4px 20px -4px rgba(236, 216, 179, 0.1);
   transform: translateY(-1.5px);
 }
 
@@ -191,8 +193,27 @@ a {
   background: linear-gradient(180deg, var(--gold-core), var(--champagne));
   box-shadow: 
     0 1px 0px rgba(255, 255, 255, 0.6) inset,
-    0 12px 30px -10px rgba(236, 216, 179, 0.45),
+    0 12px 30px -10px rgba(236, 216, 179, 0.4),
     var(--shadow-sm);
+}
+
+/* Luxury light beam shine element */
+.btn--primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.38) 50%,
+    transparent
+  );
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .btn--primary:hover,
@@ -200,8 +221,12 @@ a {
   transform: translateY(-2px);
   box-shadow: 
     0 1px 0px rgba(255, 255, 255, 0.8) inset,
-    0 16px 36px -10px rgba(236, 216, 179, 0.6),
+    0 16px 36px -10px rgba(236, 216, 179, 0.55),
     var(--shadow-md);
+}
+
+.btn--primary:hover::after {
+  transform: translateX(200%);
 }
 
 .btn--ghost {
@@ -214,7 +239,7 @@ a {
 .btn--ghost:hover,
 .btn--ghost:focus-visible {
   color: var(--text-primary);
-  background: rgba(245, 242, 235, 0.03);
+  background: rgba(245, 242, 235, 0.04);
 }
 
 .btn__arrow {
@@ -248,7 +273,7 @@ a {
   margin: 0 0 1.6rem;
   font-size: 0.76rem;
   font-weight: 500;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.38em; /* Expanded for editorial fashion tracking */
   text-transform: uppercase;
   color: var(--champagne);
 }

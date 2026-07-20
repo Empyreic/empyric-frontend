@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import Grain from "./components/Grain.jsx";
 import PostHogPageView from "./components/PostHogPageView.jsx";
@@ -9,12 +9,17 @@ import CookieConsent from "./components/CookieConsent.jsx";
 import Seo from "./components/Seo.jsx";
 import ScrollManager from "./components/ScrollManager.jsx";
 import Home from "./pages/Home.jsx";
+import CinematicClouds from "./components/CinematicClouds.jsx";
+import SmoothScroll from "./components/SmoothScroll.jsx";
 
 const CaseStudy = lazy(() => import("./pages/CaseStudy.jsx"));
 const Studio = lazy(() => import("./pages/Studio.jsx"));
 const LegalPage = lazy(() => import("./pages/LegalPage.jsx"));
 
 export default function App() {
+  const location = useLocation();
+  const isCaseStudy = location.pathname.startsWith("/work/") && location.pathname !== "/work";
+
   useEffect(() => {
     // The home intro is one tall scroll-driven stage — never restore a
     // mid-page position on reload.
@@ -22,9 +27,10 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <SmoothScroll>
       <PostHogPageView />
       <Seo />
+      <CinematicClouds isCaseStudy={isCaseStudy} />
       <Grain />
       <Nav />
       <ScrollManager />
@@ -43,6 +49,6 @@ export default function App() {
       </Suspense>
       <Footer />
       <CookieConsent />
-    </>
+    </SmoothScroll>
   );
 }

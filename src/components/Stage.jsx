@@ -1,6 +1,7 @@
 import { useRef } from "react";
 
 import HeroContent from "./HeroContent.jsx";
+import VolumetricSunlight from "./VolumetricSunlight.jsx";
 import Captions from "./Captions.jsx";
 import ScrollCue from "./ScrollCue.jsx";
 import { captions } from "../data/captions.js";
@@ -60,6 +61,7 @@ export default function Stage({ reduced }) {
 
         {/* Phase 0 — the hero */}
         <div className={styles.inner} ref={heroRef}>
+          <VolumetricSunlight />
           <HeroContent />
         </div>
 

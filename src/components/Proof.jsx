@@ -1,16 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import anime from "animejs";
 
 import { proofChecks, proofPillars, proofStats } from "../data/proof.js";
 import { useInView } from "../hooks/useInView.js";
 import { useCountUp } from "../hooks/useCountUp.js";
 import { useDrawIn } from "../hooks/useDrawIn.js";
+import { useParallax } from "../hooks/useParallax.js";
 import styles from "./Proof.module.css";
 
 export default function Proof({ reduced }) {
   const [ref, inView] = useInView({ threshold: 0.12 });
+  const headRef = useRef(null);
   useCountUp(ref, reduced);
   useDrawIn(ref, reduced);
+  useParallax(headRef, { from: -5, to: 5 }, reduced);
 
   useEffect(() => {
     if (!inView || reduced) return;
@@ -43,7 +46,7 @@ export default function Proof({ reduced }) {
   return (
     <section className={styles.proof} id="proof" aria-labelledby="proof-title" ref={ref}>
       <div className={styles.inner}>
-        <header className={styles.head}>
+        <header className={styles.head} ref={headRef}>
           <p className={`eyebrow ${styles.eyebrow}`} data-proof-head>
             <span className="eyebrow__mark" />
             Proof System

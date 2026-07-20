@@ -1,0 +1,274 @@
+/* ============================================================
+   Cinematic Clouds Stylesheet — Single-Div repeat-x Background system.
+   ============================================================ */
+
+.cloudStage {
+  display: contents;
+}
+
+/* Cloud wrapper handling scroll fade-out (slowly hide) */
+.cloudsWrapper {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--cloud-opacity, 1);
+  visibility: var(--cloud-visibility, visible);
+  will-change: opacity, visibility;
+  transition: opacity 0.08s ease-out;
+}
+
+/* Common layer container defaults — extended wide horizontally so repeat-x seamlessly covers scroll shifts */
+.layerBackground,
+.layerMiddle,
+.layerForeground {
+  position: fixed;
+  left: -2000px;
+  width: calc(100vw + 4000px);
+  pointer-events: none;
+}
+
+/* Layer 5: Background Atmospheric Sunrise Haze */
+.layerHaze {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(
+    180deg,
+    #050814 0%,
+    #0a142c 25%,
+    #1d1532 50%,
+    #4a2235 75%,
+    #1b1022 90%,
+    #05070e 100%
+  );
+  pointer-events: none;
+}
+
+.layerHazeDaylight {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #03050c 0%,
+    #071026 25%,
+    #181a3d 50%,
+    #3f2b45 75%,
+    #6d4b53 90%,
+    #2c1a2d 100%
+  );
+  opacity: var(--scroll-ratio, 0);
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Atmospheric vignette to darken corners for cinematic scale */
+.layerHaze::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 40%, rgba(5, 7, 14, 0.65) 100%);
+  pointer-events: none;
+}
+
+/* Floating sunrise sun glow */
+.sunGlow {
+  position: absolute;
+  top: 5%;
+  right: -10%;
+  width: 85vmax;
+  height: 85vmax;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 222, 162, 0.38) 0%,
+    rgba(235, 142, 112, 0.22) 30%,
+    rgba(145, 82, 155, 0.08) 60%,
+    transparent 80%
+  );
+  filter: blur(75px);
+  animation: sunGlowPulse 28s ease-in-out infinite alternate;
+}
+
+@keyframes sunGlowPulse {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(1.15) translate3d(-40px, 30px, 0);
+    opacity: 0.95;
+  }
+}
+
+/* ============================================================
+   Independent Breathing / Floating Sways
+   ============================================================ */
+.floatBg {
+  width: 100%;
+  height: 100%;
+  animation: floatBgKey 20s ease-in-out infinite alternate;
+}
+
+.floatMid {
+  width: 100%;
+  height: 100%;
+  animation: floatMidKey 16s ease-in-out infinite alternate;
+}
+
+.floatFg {
+  width: 100%;
+  height: 100%;
+  animation: floatFgKey 12s ease-in-out infinite alternate;
+}
+
+@keyframes floatBgKey {
+  0% { transform: translate3d(0, -8px, 0); }
+  100% { transform: translate3d(0, 8px, 0); }
+}
+
+@keyframes floatMidKey {
+  0% { transform: translate3d(0, -14px, 0); }
+  100% { transform: translate3d(0, 14px, 0); }
+}
+
+@keyframes floatFgKey {
+  0% { transform: translate3d(0, -20px, 0); }
+  100% { transform: translate3d(0, 20px, 0); }
+}
+
+/* ============================================================
+   Cloud Texture Setup (repeat-x only)
+   ============================================================ */
+
+.cloudA,
+.cloudB,
+.cloudC {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat-x;
+  background-position: 0 top;
+  will-change: background-position-x;
+}
+
+.cloudC {
+  background-image: url("/cloudc.webp");
+  background-size: 2800px auto;
+  animation: driftLeftBg 320s linear infinite;
+}
+
+.cloudB {
+  background-image: url("/cloudb.webp");
+  background-size: 2000px auto;
+  animation: driftRightMid 220s linear infinite;
+}
+
+.cloudA {
+  background-image: url("/clouda.webp");
+  background-size: 2400px auto;
+  animation: driftLeftFg 140s linear infinite;
+}
+
+/* Horizontal Background Position Drift animations */
+@keyframes driftLeftBg {
+  from { background-position-x: 0px; }
+  to { background-position-x: -2800px; }
+}
+
+@keyframes driftRightMid {
+  from { background-position-x: -2000px; }
+  to { background-position-x: 0px; }
+}
+
+@keyframes driftLeftFg {
+  from { background-position-x: 0px; }
+  to { background-position-x: -2400px; }
+}
+
+/* ============================================================
+   Layer Specific Layout & Masks
+   ============================================================ */
+
+/* Layer 3: Background Clouds (Large, low opacity, large blur, barely moves) */
+.layerBackground {
+  top: 0;
+  height: 100vh;
+  z-index: -1;
+  filter: blur(5px) brightness(1.22);
+  animation: opacityBackground 48s ease-in-out infinite alternate;
+  transform: translate3d(var(--scroll-x-bg, 0px), 0, 0);
+  will-change: transform;
+
+  /* Static mask feathers the top and bottom transition lines relative to screen */
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
+}
+
+/* Layer 2: Middle Clouds (Medium opacity, slight blur, moves slower) */
+.layerMiddle {
+  top: 0;
+  height: 100vh;
+  z-index: 1; /* Sits in front of background layer, behind z-index: 2 sections */
+  filter: blur(1.5px) brightness(1.2) drop-shadow(0 15px 12px rgba(10, 8, 20, 0.45));
+  animation: opacityMiddle 36s ease-in-out infinite alternate;
+  transform: translate3d(var(--scroll-x-mid, 0px), 0, 0);
+  will-change: transform;
+
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
+}
+
+/* Layer 1: Foreground Clouds (Large scale, highest opacity, moves fastest, passes in front of content) */
+.layerForeground {
+  top: -1200px;
+  height: calc(100vh + 1200px);
+  z-index: 20; /* Passes in front of z-index: 2 content, behind z-index: 30 navigation */
+  filter: brightness(1.15) drop-shadow(0 25px 20px rgba(5, 7, 15, 0.5));
+  animation: opacityForeground 24s ease-in-out infinite alternate;
+  transform: translate3d(var(--scroll-x-fg, 0px), var(--scroll-y-fg, 0px), 0);
+  will-change: transform;
+
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent 100%);
+}
+
+/* ============================================================
+   Coprime Opacity Sways
+   ============================================================ */
+@keyframes opacityBackground {
+  0% { opacity: 0.22; }
+  100% { opacity: 0.48; }
+}
+
+@keyframes opacityMiddle {
+  0% { opacity: 0.28; }
+  100% { opacity: 0.58; }
+}
+
+@keyframes opacityForeground {
+  0% { opacity: 0.35; }
+  100% { opacity: 0.88; }
+}
+
+/* ============================================================
+   Reduced Motion Overrides
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .layerBackground,
+  .layerMiddle,
+  .layerForeground,
+  .floatBg,
+  .floatMid,
+  .floatFg,
+  .sunGlow,
+  .cloudA,
+  .cloudB,
+  .cloudC {
+    animation: none !important;
+    transform: none !important;
+  }
+  .layerBackground { opacity: 0.22; }
+  .layerMiddle { opacity: 0.28; }
+  .layerForeground { opacity: 0.45; }
+}

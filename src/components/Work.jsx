@@ -6,6 +6,7 @@ import ArrowIcon from "./icons/ArrowIcon.jsx";
 import { work } from "../data/work.js";
 import { useInView } from "../hooks/useInView.js";
 import { useCountUp } from "../hooks/useCountUp.js";
+import { useParallax } from "../hooks/useParallax.js";
 import styles from "./Work.module.css";
 
 /** Selected Work - concrete case studies, rendered inside a scroll & button controlled carousel. */
@@ -14,11 +15,13 @@ export default function Work({ reduced }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const stageRef = useRef(null);
   const trackRef = useRef(null);
+  const headRef = useRef(null);
   const activeIndexRef = useRef(activeIndex);
   const wheelLockRef = useRef(false);
   const navigate = useNavigate();
 
   useCountUp(ref, reduced);
+  useParallax(headRef, { from: -5, to: 5 }, reduced);
 
   // Entrance header + track stagger fade in
   useEffect(() => {
@@ -121,7 +124,7 @@ export default function Work({ reduced }) {
 
   return (
     <section className={styles.work} id="work" aria-labelledby="work-title" ref={ref}>
-      <header className={styles.head}>
+      <header className={styles.head} ref={headRef}>
         <p className={`eyebrow ${styles.eyebrow}`} data-head>
           <span className="eyebrow__mark" />
           Selected Work

@@ -12,16 +12,27 @@ const LINKS = [
   { label: "Contact", to: { pathname: "/", hash: "#contact" } },
 ];
 
-/** Fixed, transparent header that floats over every page. */
+/** Fixed header that floats over every page, turning glassmorphic on scroll. */
 export default function Nav() {
   const theme = "dark";
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   // Any navigation (route or in-page hash) closes the mobile menu.
   useEffect(() => {
     setOpen(false);
   }, [location.pathname, location.hash]);
+
+  // Monitor scroll height to apply glassmorphic backing
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Lock body scroll while the mobile menu overlay is open.
   useEffect(() => {
@@ -38,6 +49,7 @@ export default function Nav() {
       className={styles.nav}
       data-theme={theme}
       data-open={open || undefined}
+      data-scrolled={scrolled || undefined}
     >
       <div className={styles.inner}>
         <Link className={styles.wordmark} to="/" aria-label="Empyreic home">

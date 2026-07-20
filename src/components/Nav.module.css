@@ -25,12 +25,13 @@
   font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  color: #ffffff; /* White logo text */
 }
 .glyph {
   display: inline-flex;
   line-height: 0;
-  color: var(--champagne-soft);
-  filter: drop-shadow(0 0 8px rgba(236, 216, 179, 0.35));
+  color: #ffffff; /* White logo glyph */
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.25));
   cursor: pointer;
   transition: transform 0.5s var(--ease-out-expo), color 0.5s var(--ease);
 }
@@ -46,7 +47,7 @@
   font-size: 0.9rem;
 }
 .links a {
-  color: var(--text-secondary);
+  color: #ffffff; /* White navbar links */
   position: relative;
   padding: 0.25rem 0;
   transition: color 0.3s var(--ease);
@@ -65,7 +66,7 @@
 }
 .links a:hover,
 .links a:focus-visible {
-  color: var(--text-primary);
+  color: var(--champagne); /* Luxury gold color transition on hover */
 }
 .links a:hover::after {
   transform: scaleX(1);
@@ -118,7 +119,7 @@
   height: 1.6px;
   margin: 0 auto;
   border-radius: 2px;
-  background: var(--ivory);
+  background: #ffffff;
   transition: transform 0.32s var(--ease), opacity 0.32s var(--ease);
 }
 .nav[data-theme="light"] .toggleBar {

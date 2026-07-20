@@ -4,12 +4,16 @@
   bottom: clamp(1rem, 2vw, 1.5rem);
   z-index: 60;
   width: min(24rem, calc(100vw - 2rem));
-  padding: 1rem;
-  border: 1px solid rgba(236, 216, 179, 0.22);
-  border-radius: 8px;
-  background: rgba(7, 10, 20, 0.94);
-  box-shadow: 0 22px 70px -34px rgba(0, 0, 0, 0.86);
+  padding: 1.2rem;
+  border: 1px solid rgba(245, 242, 235, 0.06);
+  border-radius: var(--radius-lg);
+  background: rgba(18, 24, 41, 0.45);
+  box-shadow: 
+    var(--shadow-lg),
+    0 4px 30px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .kicker {

@@ -19,7 +19,9 @@ export default function Testimonials({ reduced }) {
   const quoteRef = useRef(null);
   const pausedRef = useRef(false);
   const auraRef = useRef(null);
+  const headRef = useRef(null);
   useParallax(auraRef, { from: -8, to: 8 }, reduced);
+  useParallax(headRef, { from: -5, to: 5 }, reduced);
 
   const current = testimonials[active];
 
@@ -73,7 +75,7 @@ export default function Testimonials({ reduced }) {
         <span className="eyebrow__mark" />
         Voices
       </p>
-      <h2 className={styles.heading} id="testimonials-title">
+      <h2 className={styles.heading} id="testimonials-title" ref={headRef}>
         Words from those who crossed over.
       </h2>
 

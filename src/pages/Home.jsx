@@ -8,6 +8,7 @@ const Proof = lazy(() => import("../components/Proof.jsx"));
 const Work = lazy(() => import("../components/Work.jsx"));
 const Testimonials = lazy(() => import("../components/Testimonials.jsx"));
 const Contact = lazy(() => import("../components/Contact.jsx"));
+const SectionFog = lazy(() => import("../components/SectionFog.jsx"));
 
 const hasPrerenderedMarkup = () =>
   typeof document === "undefined" ||
@@ -34,9 +35,13 @@ export default function Home() {
       {showRest && (
         <Suspense fallback={null}>
           <Services reduced={reduced} />
+          <SectionFog />
           <Proof reduced={reduced} />
+          <SectionFog />
           <Work reduced={reduced} />
+          <SectionFog />
           <Testimonials reduced={reduced} />
+          <SectionFog />
           <Contact reduced={reduced} />
         </Suspense>
       )}

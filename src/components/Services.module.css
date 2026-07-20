@@ -2,7 +2,7 @@
   position: relative;
   z-index: 2;
   padding: clamp(6rem, 13vh, 11rem) var(--shell-x) clamp(5rem, 10vh, 9rem);
-  background: var(--bg-deep);
+  background: transparent;
   overflow: hidden;
 }
 
@@ -83,28 +83,33 @@
   position: relative;
   min-height: clamp(400px, 48vh, 480px);
   padding: var(--space-8);
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-md);
+  background: rgba(18, 24, 41, 0.35); /* Softer base opacity for glassmorphism */
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  border: 1px solid rgba(245, 242, 235, 0.06);
+  border-radius: var(--radius-lg); /* Slightly more rounded for luxury card feel */
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: var(--shadow-md);
+  box-shadow: 
+    var(--shadow-md),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
   transition: 
-    border-color 0.4s var(--ease),
-    background-color 0.4s var(--ease),
-    box-shadow 0.4s var(--ease),
-    transform 0.4s var(--ease);
+    border-color 0.5s var(--ease),
+    background-color 0.5s var(--ease),
+    box-shadow 0.5s var(--ease),
+    transform 0.5s var(--ease);
 }
 
 .card:hover {
-  border-color: rgba(236, 216, 179, 0.28);
-  background-color: rgba(18, 24, 41, 0.7);
+  border-color: rgba(236, 216, 179, 0.32);
+  background-color: rgba(18, 24, 41, 0.55); /* Retains glassmorphism on hover */
   box-shadow: 
     var(--shadow-lg),
-    inset 0 0 20px rgba(236, 216, 179, 0.03);
-  transform: translateY(-4px);
+    0 10px 30px -10px rgba(236, 216, 179, 0.08),
+    inset 0 0 20px rgba(236, 216, 179, 0.04);
+  transform: translateY(-6px) scale(1.01); /* Dynamic scale micro-interaction */
 }
 
 /* Card Header content */

@@ -2,7 +2,7 @@
   position: relative;
   z-index: 2;
   padding: clamp(6rem, 13vh, 11rem) var(--shell-x) clamp(5rem, 10vh, 9rem);
-  background: var(--bg-deep);
+  background: transparent;
   overflow: hidden;
 }
 
@@ -74,17 +74,19 @@
   flex: 0 0 clamp(380px, 48vw, 620px);
   height: clamp(500px, 64vh, 660px);
   margin: 0 18px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-soft);
-  background: var(--bg-card);
+  border-radius: var(--radius-lg); /* Larger rounded corners for luxury layout */
+  border: 1px solid rgba(245, 242, 235, 0.05);
+  background: rgba(18, 24, 41, 0.35); /* Glassmorphic base */
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
   position: relative;
   overflow: hidden;
   cursor: pointer;
   opacity: 0.45;
   transform: scale(0.88);
   transition: 
-    transform 0.5s var(--ease), 
-    opacity 0.5s var(--ease), 
+    transform 0.6s var(--ease), 
+    opacity 0.6s var(--ease), 
     border-color 0.4s var(--ease),
     box-shadow 0.4s var(--ease);
   box-shadow: var(--shadow-sm);
@@ -95,7 +97,9 @@
 .cardActive {
   opacity: 1;
   transform: scale(1);
-  box-shadow: var(--shadow-md);
+  box-shadow: 
+    var(--shadow-md),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
 .card:focus-visible {
@@ -112,9 +116,12 @@
 
 /* Active card hover scale and glow */
 .cardActive:hover {
-  transform: scale(1.025);
-  border-color: rgba(236, 216, 179, 0.28);
-  box-shadow: var(--shadow-glow), var(--shadow-lg);
+  transform: scale(1.03); /* Larger kinetic scale */
+  border-color: rgba(236, 216, 179, 0.35);
+  box-shadow: 
+    0 0 35px rgba(236, 216, 179, 0.12), /* Rich warm gold radial glow */
+    var(--shadow-lg),
+    inset 0 0 20px rgba(236, 216, 179, 0.04);
 }
 
 /* Image Background Wrapper */
@@ -187,12 +194,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(10, 14, 26, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid var(--border-soft);
+  background: rgba(10, 14, 26, 0.68); /* Translucent backdrop overlay */
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  border-top: 1px solid rgba(245, 242, 235, 0.08);
   transform: translateY(66%);
-  transition: transform 0.45s var(--ease);
+  transition: transform 0.5s var(--ease); /* Smoother slide ease */
   padding: 1.5rem;
   box-sizing: border-box;
   z-index: 4;

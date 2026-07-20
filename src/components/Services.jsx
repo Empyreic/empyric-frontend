@@ -14,7 +14,9 @@ import styles from "./Services.module.css";
 export default function Services({ reduced }) {
   const [ref, inView] = useInView({ threshold: 0.12 });
   const glowRef = useRef(null);
+  const headRef = useRef(null);
   useParallax(glowRef, { from: -16, to: 16 }, reduced);
+  useParallax(headRef, { from: -5, to: 5 }, reduced);
 
   // Entrance stagger animations for headers and cards
   useEffect(() => {
@@ -52,7 +54,7 @@ export default function Services({ reduced }) {
       {/* Shared subtle center glow for disciplines */}
       <div className={styles.sharedGlow} aria-hidden="true" ref={glowRef} />
 
-      <header className={styles.head}>
+      <header className={styles.head} ref={headRef}>
         <p className={`eyebrow ${styles.eyebrow}`} data-head>
           <span className="eyebrow__mark" />
           The Craft
